@@ -1,18 +1,18 @@
 Liste des fonctionnalités 
 
-- Personnage en 2D qui se balade en vue du dessus
-- Le terrain : un plateau avec des murs
-- Des ouvertures sur les bords
-- Des monstres entrent par les ouvertures par vagues
-- Ils cherchent à détruire le nexus
-- Un objectif ("nexus") à défendre
-- Tuer les monstres pour les empêcher de toucher le nexus
-- Vagues "infinies", de plus en plus dures
-- Arme : une épée
-- Contact avec adversaire sans le frapper : dégats
-- Nouveau terrain toutes les qqes vagues
-- Points de vie : pour le nexus, et pour le héros
-- Bonus / malus sur la carte 
+2 - Personnage en 2D qui se balade en vue du dessus au clavier
+	-> Un personnage a des coordonnées x y
+1 - Le terrain : un plateau avec des murs
+1 - Un objectif ("nexus")
+3 - Des ouvertures sur les bords
+4 - Des monstres entrent par les ouvertures par vagues
+4 - Ils cherchent à détruire le nexus
+5 - Tuer les monstres pour les empêcher de toucher le nexus
+6 - Vagues "infinies", de plus en plus dures
+5 - Contact avec adversaire : destruction de l'adversaire
+7 - Nouveau terrain toutes les qqes vagues
+5 - Points de vie : pour le nexus
+11 - Bonus / malus sur la carte 
 	- Invulnérabilité
 	- Vitesse 
 	- Plus de points de vies
@@ -20,12 +20,12 @@ Liste des fonctionnalités
 	- Pouvoir poser une tourelle à un endroit
 - Systeme de niveaux avec compétences  
 - Gestion d'un inventaire 
-- Customiser notre personnage
-- Menu
+9 - Customiser notre personnage
+9 - Menu
 - Multijoueur sur le meme clavier
-- De la musique, des bruitages
-- Graphismes un peu gores ? 
-
+10 - De la musique, des bruitages
+10 - Graphismes un peu gores ? 
+11 - Système de pièces pour acheter des chaussures pour aller plus vite
 
 
 Pour les sprites :
