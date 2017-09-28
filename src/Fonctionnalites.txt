@@ -1,0 +1,32 @@
+Liste des fonctionnalités 
+
+- Personnage en 2D qui se balade en vue du dessus
+- Le terrain : un plateau avec des murs
+- Des ouvertures sur les bords
+- Des monstres entrent par les ouvertures par vagues
+- Ils cherchent à détruire le nexus
+- Un objectif ("nexus") à défendre
+- Tuer les monstres pour les empêcher de toucher le nexus
+- Vagues "infinies", de plus en plus dures
+- Arme : une épée
+- Contact avec adversaire sans le frapper : dégats
+- Nouveau terrain toutes les qqes vagues
+- Points de vie : pour le nexus, et pour le héros
+- Bonus / malus sur la carte 
+	- Invulnérabilité
+	- Vitesse 
+	- Plus de points de vies
+	- Traverser les murs
+	- Pouvoir poser une tourelle à un endroit
+- Systeme de niveaux avec compétences  
+- Gestion d'un inventaire 
+- Customiser notre personnage
+- Menu
+- Multijoueur sur le meme clavier
+- De la musique, des bruitages
+- Graphismes un peu gores ? 
+
+
+
+Pour les sprites :
+https://opengameart.org
