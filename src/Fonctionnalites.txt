@@ -1,11 +1,14 @@
 Liste des fonctionnalités 
 
-2 - Personnage en 2D qui se balade en vue du dessus au clavier
+1 - Personnage en 2D qui se balade en vue du dessus au clavier
+	a - Version texte
+	b - Version graphique
 	-> Un personnage a des coordonnées x y
-1 - Le terrain : un plateau avec des murs
-1 - Un objectif ("nexus")
-3 - Des ouvertures sur les bords
-4 - Des monstres entrent par les ouvertures par vagues
+1 - Affichage du terrain : un plateau avec des murs
+	a - Version texte (liste des murs)
+	b - Version graphique
+2 - Un objectif ("nexus")
+4 - Des monstres entrent par les ouvertures sur les bords par vagues
 4 - Ils cherchent à détruire le nexus
 5 - Tuer les monstres pour les empêcher de toucher le nexus
 6 - Vagues "infinies", de plus en plus dures
