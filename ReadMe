@@ -1,0 +1,6 @@
+README
+Version 0.1
+ant run 
+-> Se déplacer avec les flèches directionnelles
+-> Affichages des coordonnées du hero en direct 
+-> Quitter l'application en appuyant sur S

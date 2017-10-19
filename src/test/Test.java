@@ -17,7 +17,7 @@ public class Test {
 		final Monde monde = new Monde();
 		
 		
-		JFrame frame = new JFrame();
+		final JFrame frame = new JFrame();
 		frame.addKeyListener(new KeyListener(){
 
 			@Override
@@ -25,24 +25,28 @@ public class Test {
 				switch(e.getKeyCode()){
 				case 37:// gauche
 					monde.deplacerHero(-1, 0);
+					System.out.println(monde.toString());
 					break;
 				case 38:// haut
 					monde.deplacerHero(0, -1);
+					System.out.println(monde.toString());
 					break;
 				case 39:// droite
 					monde.deplacerHero(1, 0);
+					System.out.println(monde.toString());
 					break;
 				case 40:// bas
 					monde.deplacerHero(0, 1);
+					System.out.println(monde.toString());
 					break;
 				}
-				System.out.println(monde.toString());
+				
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
+				if(e.getKeyChar() == 's')
+					frame.dispose();			
 			}
 
 			@Override
