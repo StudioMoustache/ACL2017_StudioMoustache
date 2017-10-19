@@ -38,4 +38,18 @@ Gestion des sprints :
 Fixer les objectifs 
 	- dans la scéances de 2h (sprint 1.1)
 	- dans la semaine (sprint 1.2)
+	
+Premier sprint :
+ - Sceance 2h : Deplacer un personnage sur un plateau (affichage console -> coordonnées, )
+ - En semaine : 
+ 	-Interaction hero-monstres (les ecraser)
+	-Interaction monstres-nexus (degats nexus + autodestruction monstre)
+	
+Deuxième sprint : 
+ - Sceance 2h :	Mise en place de portails (vagues d'ennemis) + murs (pathfinding)
+ - En semaine : Interface graphique (traduction infos console en graphique)
+ 
+ Troisième sprint : 
+ - Sceance 2h : Automatisation des vagues de monstres (un vrai niveau)
+ - En semaine : Menu + calcul des points + informations tierces
  
