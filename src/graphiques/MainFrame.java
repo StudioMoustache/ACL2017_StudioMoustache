@@ -24,27 +24,26 @@ public class MainFrame extends JFrame implements KeyListener {
 		switch (e.getKeyCode()) {
 		case 37:// gauche
 			monde.deplacerHero(-1, 0);
-			System.out.println(monde.toString());
 			break;
 		case 38:// haut
 			monde.deplacerHero(0, -1);
-			System.out.println(monde.toString());
 			break;
 		case 39:// droite
 			monde.deplacerHero(1, 0);
-			System.out.println(monde.toString());
 			break;
 		case 40:// bas
 			monde.deplacerHero(0, 1);
-			System.out.println(monde.toString());
 			break;
 		}
 
 	}
 
 	public void keyReleased(KeyEvent e) {
-		if (e.getKeyChar() == 's')
+		if (e.getKeyChar() == 's') {
+			System.out.println("S pressed. Goodbye !");
 			this.dispose();
+			System.exit(0);
+		}
 	}
 
 	public void keyTyped(KeyEvent e) {

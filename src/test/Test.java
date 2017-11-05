@@ -16,11 +16,11 @@ public class Test {
 	
 	private static void testDeplacementHero() {
 		final Monde monde = new Monde();
-		
 		final MainFrame frame = new MainFrame(monde);
 		
 		frame.pack();
 		frame.setVisible(true);
+
 	}
 
 }
