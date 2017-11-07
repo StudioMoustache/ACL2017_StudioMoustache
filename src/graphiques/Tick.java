@@ -17,6 +17,9 @@ public class Tick implements ActionListener {
 	private Timer timer;
 	private final int REFRESH = 250;
 	
+	/**
+	 * Constructeur du Tick, qu'on n'utilise qu'une fois, qui initialise le Timer et le lance
+	 */
 	public Tick(Monde monde) {
 		this.monde = monde;
 		this.timer = new Timer(REFRESH, (ActionListener) this);

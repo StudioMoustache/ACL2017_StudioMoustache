@@ -8,6 +8,8 @@ public class Hero {
 	private static Hero hero1 = new Hero(5,5,1);
 	private static Hero hero2 = new Hero(5,10,1);
 	
+	// ----- Constructeurs ------
+	
 	private Hero(){
 		this.x = 0;
 		this.y = 0;
@@ -20,10 +22,15 @@ public class Hero {
 		this.vitesse = vitesse;
 	}
 	
+	
+	// ----- Fonctions -----
+	
 	public void deplacer(int x, int y){ // a changer peut etre
 		this.x += x;
 		this.y += y;
 	}
+	
+	// ----- Getters & Setters
 	
 	public int getVitesse() {
 		return vitesse;
@@ -58,6 +65,6 @@ public class Hero {
 	}
 	
 	public String toString(){
-		return "Hero X : "+hero1.getX()+" Y : "+hero1.getY();
+		return "Hero("+hero1.getX()+":"+hero1.getY()+")";
 	}
 }

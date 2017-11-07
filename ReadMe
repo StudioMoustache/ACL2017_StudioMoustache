@@ -13,3 +13,6 @@ Version 0.3
 -> Frame mise a jour avec un taux de rafraichissement
 -> Un monstre qui rentre dans le nexus s'auto-detruit et fait perdre de la vie au nexus
 -> Si le nexus est detruit, la partie est perdue
+
+
+Note : L'origine du repère (0,0) est en haut à gauche.

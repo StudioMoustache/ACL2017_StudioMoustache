@@ -4,28 +4,40 @@ public class Monstre {
 	private int x;
 	private int y;
 	private static int vitesse;
-	private String nom; // pour les reperer sur la console. Peut etre utile pour la toute fin aussi
 	
-	public Monstre(String nom){
-		this.nom = nom;
+	
+	// ----- Constructeurs -----
+	
+	public Monstre(){
 		this.x = 0;
 		this.y = 0;
 		this.vitesse = 1;
 	}
 	
-	public Monstre(int x, int y, int vitesse, String nom){
-		this.nom = nom;
+	public Monstre(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	public Monstre(int x, int y, int vitesse){;
 		this.x = x;
 		this.y = y;
 		this.vitesse = vitesse;
 	}
 
 	
-	public void deplacer(int x, int y){ // a changer peut etre
+	// ----- Fonctions -----
+	
+	/**
+	 * A modifier par la suite, on ne prend pas encore en compte la vitesse
+	 */
+	public void deplacer(int x, int y){
 		this.x += x;
 		this.y += y;
 	}
 	
+	
+	// ----- Getters & Setters ----- 
 	
 	public int getVitesse() {
 		return vitesse;
@@ -52,7 +64,7 @@ public class Monstre {
 	}
 	
 	public String toString(){
-		return "Monstre X : "+this.getX()+" Y : "+this.getY();
+		return "Monstre("+this.getX()+":"+this.getY()+")";
 	}
 	
 }

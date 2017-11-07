@@ -8,48 +8,79 @@ import personnage.Monstre;
 
 public class Monde {
 	private ArrayList<Monstre> lesMonstres;
+	private ArrayList<Portail> lesPortails;
 	private Nexus nexus;
 	private final int HAUTEUR = 50;
 	private final int LARGEUR = 50;
 	
 	boolean perdu = false;
 	
+	private int nbUpdates;
+	
+	// ----- Constructeurs -----
+	
 	public Monde(){
 		this.lesMonstres = new ArrayList<Monstre>();
+		this.lesPortails = new ArrayList<Portail>();
+		nbUpdates = 0;
+		
 		this.nexus = new Nexus(50, 0);
-		//creation d'un monstre pour le test
-		Monstre m1 = new Monstre(0, 0, 1, "m1");
-		Monstre m2 = new Monstre(50, 50, 1, "m2");
-		lesMonstres.add(m1);
-		lesMonstres.add(m2);
+		Portail p1 = new Portail(50, 50, 5, 4);
+		lesPortails.add(p1);
+		
+		// On fait bien toutes les initialisations AVANT la creation du Tick qui va declencher les update
 		
 		Tick monTick = new Tick(this);
 	}
 	
-	public void ajouterMonstre(Monstre m){
-		lesMonstres.add(m);
+	
+	
+	// ----------------------- FONCTIONS DE INVOCATION MONSTRES ----------------------------
+	
+	/**
+	 * On recupere le premier monstre dans le portail p
+	 * On ajoute le monstre m a lesMonstres
+	 * Des qu'un monstre figure dans cette liste, il est sur le terrain.
+	 */
+	public void invoquerMonstre(Portail p){
+		if(p.getNbMonstres() > 0) {
+			p.decMonstres();
+			Monstre m = new Monstre(p.getX(), p.getY());
+			lesMonstres.add(m);
+		}
 	}
+	
+	/**
+	 * Fonction d'automatisation de l'invocation des monstres
+	 */
+	public void checkInvocationMonstres() {
+		for(Portail p : lesPortails) {
+			// si il reste des monstres au portail et si c'est l'heure pour lui d'invoquer un monstre
+			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
+				invoquerMonstre(p);
+			}
+				
+		}
+	}
+	
+	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	public void deplacerHero(int x, int y){
 		Hero.getHero1().deplacer(x, y);
 	}
 	
-	public void deplacementMonstre2Test() {
-		if(lesMonstres.size()>1) // pour eviter le crash lors de la destruction du monstre pdt le test
-			lesMonstres.get(1).deplacer(0, -1);
-	}
-	
-	public void update(){
-		if(!perdu) {
-			deplacementMonstre2Test();
-			collisionMonstres();
-			System.out.println(this.toString());
-		}else {
-			System.out.println("Nexus détruit. Vous avez perdu.");
-			System.out.println("PERDU !!");
-			System.exit(0);
+	/**
+	 * Fonction de deplacement des monstres
+	 * TODO
+	 */
+	public void deplacementMonstres() {
+		for(Monstre m : lesMonstres) {
+			m.deplacer(0, -1);
 		}
 	}
+	
+	
+	// -------------------- GESTION DES COLLISIONS --------------------
 	
 	// Rassemblement du balayage des monstres en une seule fonction ne le faire qu'une fois par fonction de collision
 	public void collisionMonstres() {
@@ -73,6 +104,25 @@ public class Monde {
 			this.perdu = true;
 		}
 	}
+	
+	
+	// ----------------------------------- UPDATE ET TOSTRING --------------------
+	
+	// A chaque Tick (rafraichissement), on deplace les monstres et on teste les collisions
+	public void update(){
+		if(!perdu) {
+			nbUpdates += 1;
+			deplacementMonstres();
+			collisionMonstres();
+			checkInvocationMonstres();
+			System.out.println(this.toString());
+		}else {
+			System.out.println("Nexus détruit. Vous avez perdu.");
+			System.out.println("PERDU !!");
+			System.exit(0);
+		}
+	}
+	
 	
 	public String toString(){
 		String toReturn = "";	
