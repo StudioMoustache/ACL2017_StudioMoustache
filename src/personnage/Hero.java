@@ -1,12 +1,19 @@
 package personnage;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import graphiques.AffichageSprite;
+
 public class Hero {
 	private int x;
 	private int y;
 	private static int vitesse;
 	
-	private static Hero hero1 = new Hero(5,5,1);
-	private static Hero hero2 = new Hero(5,10,1);
+	private static Hero hero1 = new Hero(250,250,1);
+	private static Hero hero2 = new Hero(250,250,1);
+
+	private AffichageSprite sprite = new AffichageSprite(Color.BLUE);
 	
 	// ----- Constructeurs ------
 	
@@ -66,5 +73,10 @@ public class Hero {
 	
 	public String toString(){
 		return "Hero("+hero1.getX()+":"+hero1.getY()+")";
+	}
+
+	// fonction d'affichage
+	public void dessiner(Graphics2D g) {
+		sprite.dessiner(g, x, y);
 	}
 }

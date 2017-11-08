@@ -1,5 +1,11 @@
 package principal;
 
+import java.awt.Color;
+import java.awt.Rectangle;
+import java.awt.Graphics2D;
+
+import graphiques.AffichageSprite;
+
 /**
  * 
  * Note : les monstres ne sont pas réellement stockes dans un portail. 
@@ -18,6 +24,8 @@ public class Portail {
 	private int nbMonstres;
 	private int frequence;
 	
+	private AffichageSprite sprite = new AffichageSprite(Color.WHITE);
+
 	/**
 	 * Constructeurs sans frequence
 	 * Un monstre apparaitra a chaque update (= a chaque declenchement de Tick)
@@ -65,5 +73,9 @@ public class Portail {
 	
 	public int getFrequence() {
 		return this.frequence;
+	}
+
+	public void dessiner(Graphics2D g) {
+		sprite.dessiner(g, x, y);
 	}
 }

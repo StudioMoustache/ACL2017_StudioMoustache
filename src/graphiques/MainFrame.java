@@ -2,53 +2,43 @@ package graphiques;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
 import principal.Monde;
 
-public class MainFrame extends JFrame implements KeyListener {
-	private Monde monde;
+public class MainFrame extends JFrame {
+	private static int WINDOW_WIDTH = 500;
+	private static int WINDOW_HEIGHT = 500;
+
+	private PanneauMenu panneauMenu;
+	private PanneauJeu panneauJeu;
 
 	public MainFrame(Monde monde) {
-		// this.draw=new mainDraw(); //a voir ensuite
+		super("Berzerker");
+		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-		addKeyListener(this);
-		setFocusable(true);
-		setFocusTraversalKeysEnabled(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		this.monde = monde;
+		// Chaque panel est un des menus du jeu (Menu d'avant-jeu, jeu et menu de fin de jeu)
+		panneauMenu = new PanneauMenu(this);
+		panneauMenu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+		panneauJeu = new PanneauJeu(monde, this);
+		panneauJeu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+		// initialement le premier panel est celui du menu d'avant-jeu
+		setPanneauMenu();
+
+		pack();
+		setVisible(true);
 	}
 
-	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case 37:// gauche
-			monde.deplacerHero(-1, 0);
-			break;
-		case 38:// haut
-			monde.deplacerHero(0, -1);
-			break;
-		case 39:// droite
-			monde.deplacerHero(1, 0);
-			break;
-		case 40:// bas
-			monde.deplacerHero(0, 1);
-			break;
-		}
-
+	public void setPanneauMenu() {
+		setContentPane(panneauMenu);
 	}
 
-	public void keyReleased(KeyEvent e) {
-		if (e.getKeyChar() == 's') {
-			System.out.println("S pressed. Goodbye !");
-			this.dispose();
-			System.exit(0);
-		}
+	public void setPanneauJeu() {
+		setContentPane(panneauJeu);
 	}
-
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

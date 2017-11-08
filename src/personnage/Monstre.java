@@ -1,9 +1,17 @@
 package personnage;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+
+import graphiques.AffichageSprite;
+
+
 public class Monstre {
 	private int x;
 	private int y;
 	private static int vitesse;
+
+	private AffichageSprite sprite = new AffichageSprite(Color.RED);
 	
 	
 	// ----- Constructeurs -----
@@ -11,7 +19,7 @@ public class Monstre {
 	public Monstre(){
 		this.x = 0;
 		this.y = 0;
-		this.vitesse = 1;
+		this.vitesse = 20;
 	}
 	
 	public Monstre(int x, int y) {
@@ -65,6 +73,11 @@ public class Monstre {
 	
 	public String toString(){
 		return "Monstre("+this.getX()+":"+this.getY()+")";
+	}
+
+	// fonction d'affichage
+	public void dessiner(Graphics2D g) {
+		sprite.dessiner(g, x, y);
 	}
 	
 }

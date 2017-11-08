@@ -6,16 +6,23 @@ import graphiques.Tick;
 import personnage.Hero;
 import personnage.Monstre;
 
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Color;
+
+
 public class Monde {
 	private ArrayList<Monstre> lesMonstres;
 	private ArrayList<Portail> lesPortails;
 	private Nexus nexus;
-	private final int HAUTEUR = 50;
-	private final int LARGEUR = 50;
+	private final int HAUTEUR = 500;
+	private final int LARGEUR = 500;
 	
 	boolean perdu = false;
 	
 	private int nbUpdates;
+
+	private Rectangle arrierePlan = new Rectangle(0, 0, LARGEUR, HAUTEUR);
 	
 	// ----- Constructeurs -----
 	
@@ -25,12 +32,12 @@ public class Monde {
 		nbUpdates = 0;
 		
 		this.nexus = new Nexus(50, 0);
-		Portail p1 = new Portail(50, 50, 5, 4);
+		Portail p1 = new Portail(50, 400, 5, 20);
 		lesPortails.add(p1);
 		
 		// On fait bien toutes les initialisations AVANT la creation du Tick qui va declencher les update
 		
-		Tick monTick = new Tick(this);
+		// Tick monTick = new Tick(this);
 	}
 	
 	
@@ -135,6 +142,20 @@ public class Monde {
 	
 	// TODO ajouterMonstre en designant un portail
 	
-	
-	
+
+	// fonction d'affichage du monde
+	public void dessiner(Graphics2D g) {
+		g.setBackground(Color.BLACK);
+		g.fill(arrierePlan);
+
+		nexus.dessiner(g);
+
+		for (Portail p : lesPortails) {
+			p.dessiner(g);
+		}
+
+		for (Monstre m : lesMonstres) {
+			m.dessiner(g);
+		}
+	}
 }

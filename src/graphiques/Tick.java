@@ -2,6 +2,10 @@ package graphiques;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Graphics2D;
+import java.awt.Graphics;
+
+
 
 import javax.swing.Timer;
 
@@ -16,18 +20,24 @@ public class Tick implements ActionListener {
 	private Monde monde;
 	private Timer timer;
 	private final int REFRESH = 250;
+
+	// permet l'appel du dessin du monde
+	private PanneauJeu panneauJeu;
 	
 	/**
 	 * Constructeur du Tick, qu'on n'utilise qu'une fois, qui initialise le Timer et le lance
 	 */
-	public Tick(Monde monde) {
+	public Tick(Monde monde, PanneauJeu pj) {
 		this.monde = monde;
+		panneauJeu = pj;
 		this.timer = new Timer(REFRESH, (ActionListener) this);
 		timer.start();
 	}
 
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.monde.update();		
+		this.monde.update();	
+		panneauJeu.repaint();
 	}
 }
