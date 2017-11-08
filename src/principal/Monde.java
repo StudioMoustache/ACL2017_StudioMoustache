@@ -24,7 +24,7 @@ public class Monde {
 		this.lesPortails = new ArrayList<Portail>();
 		nbUpdates = 0;
 		
-		this.nexus = new Nexus(50, 0);
+		this.nexus = new Nexus(30, 30);
 		Portail p1 = new Portail(50, 50, 5, 4);
 		lesPortails.add(p1);
 		
@@ -70,12 +70,73 @@ public class Monde {
 	}
 	
 	/**
-	 * Fonction de deplacement des monstres
-	 * TODO
+	 * 	Fonction de deplacement des monstres
+	 *  A : point de depart et B : point d'arrivee
+	 *	equation d'une droite entre deux points A et B : y = mx + p
+	 *	avec m = (yB - Ya) / (xB - xA)
+	 *	et p = yA - m*xA
 	 */
 	public void deplacementMonstres() {
-		for(Monstre m : lesMonstres) {
-			m.deplacer(0, -1);
+		// Fonction avec equation de droite : Ne fonctionne pas (encore)
+		/*int xMonstre; // xA
+		int yMonstre; // yA
+		int xNexus; // xB
+		int yNexus; // yB
+		float m, p;
+		int deplacementX, deplacementY;
+		
+		for(Monstre monstre : lesMonstres) {
+			
+			xMonstre = monstre.getX(); // xA
+			yMonstre = monstre.getY(); // yA
+			xNexus = nexus.getX(); // xB
+			yNexus = nexus.getY(); // yB
+			
+			if(xNexus == xMonstre)
+				m = Math.abs((float)yNexus - (float)yMonstre);
+			else
+				m = Math.abs(((float)yNexus - (float)yMonstre)) / Math.abs((float)xNexus - (float)xMonstre);
+			p = yMonstre - m*xMonstre;
+			
+			deplacementX = monstre.getVitesse();
+			deplacementY = (int)((m * deplacementX + p));
+			
+			monstre.deplacer(deplacementX, deplacementY);
+		}*/
+		
+		
+		// Fonction un peu plus basique qui marche
+		
+		int xNexus;
+		int yNexus;
+		int xMonstre;
+		int yMonstre;
+		int deplacementX;
+		int deplacementY;
+		int vitesse;
+		for(Monstre m : lesMonstres) {		
+			xNexus = nexus.getX();
+			yNexus = nexus.getY();
+			
+			xMonstre = m.getX();
+			yMonstre = m.getY();
+			
+			vitesse = m.getVitesse();
+			if(xNexus < xMonstre)
+				deplacementX = -vitesse;
+			else if(xNexus > xMonstre)
+				deplacementX = vitesse;
+			else // xMonstre == XNexus
+				deplacementX = 0;
+			
+			if(yNexus < yMonstre)
+				deplacementY = -vitesse;
+			else if(yNexus > yMonstre)
+				deplacementY = vitesse;
+			else // xMonstre == XNexus
+				deplacementY = 0;
+			
+			m.deplacer(deplacementX, deplacementY);
 		}
 	}
 	
