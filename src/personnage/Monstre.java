@@ -25,6 +25,7 @@ public class Monstre {
 	public Monstre(int x, int y) {
 		this.x = x;
 		this.y = y;
+		this.vitesse = 1;
 	}
 	
 	public Monstre(int x, int y, int vitesse){;
@@ -36,9 +37,6 @@ public class Monstre {
 	
 	// ----- Fonctions -----
 	
-	/**
-	 * A modifier par la suite, on ne prend pas encore en compte la vitesse
-	 */
 	public void deplacer(int x, int y){
 		this.x += x;
 		this.y += y;
