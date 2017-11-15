@@ -2,6 +2,7 @@ package personnage;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import graphiques.AffichageSprite;
 
@@ -78,5 +79,48 @@ public class Hero {
 	// fonction d'affichage
 	public void dessiner(Graphics2D g) {
 		sprite.dessiner(g, x, y);
+	}
+
+	public boolean testCollisionMur(BufferedImage bi, int deplacementx, int deplacementy) {
+
+		boolean collision = false;
+		boolean tour = false;
+
+		int nouveauX = x+deplacementx;
+		int nouveauY = y+deplacementy;
+
+		int currentpixelX = nouveauX, currentpixelY = nouveauY;
+		int signeX = 1, signeY = 0;
+
+		while (!tour && !collision) {
+			if (currentpixelX == nouveauX + sprite.getWidth()-1 && currentpixelY == nouveauY) {
+				signeX = 0;
+				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
+				signeY = 1;
+			}
+
+			if (currentpixelX == nouveauX + sprite.getWidth()-1 && currentpixelY == nouveauY + sprite.getHeight()-1) {
+				signeX = -1;
+				signeY = 0;
+			}
+
+			if (currentpixelX == nouveauX && currentpixelY == nouveauY + sprite.getHeight()-1) {
+				signeX = 0;
+				signeY = -1;
+			}
+
+			if ((0x000000FF & bi.getRGB(currentpixelX, currentpixelY)) == 0) {
+				collision = true;
+			}
+
+			currentpixelX += signeX;
+			currentpixelY += signeY;
+
+			if (currentpixelX == nouveauX && currentpixelY == nouveauY) {
+				tour = true;
+			}
+		}
+		
+		return collision;
 	}
 }

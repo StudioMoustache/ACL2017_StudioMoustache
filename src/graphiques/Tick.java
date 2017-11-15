@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.Graphics2D;
 import java.awt.Graphics;
 
-
-
 import javax.swing.Timer;
 
 import principal.Monde;

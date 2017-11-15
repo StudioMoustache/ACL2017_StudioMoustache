@@ -1,14 +1,18 @@
 package principal;
 
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+
+import java.io.IOException;
+
+import java.io.File;
 
 import graphiques.Tick;
 import personnage.Hero;
 import personnage.Monstre;
 
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 
 public class Monde {
@@ -22,7 +26,7 @@ public class Monde {
 	
 	private int nbUpdates;
 
-	private Rectangle arrierePlan = new Rectangle(0, 0, LARGEUR, HAUTEUR);
+	private BufferedImage carte;
 	
 	// ----- Constructeurs -----
 	
@@ -34,6 +38,12 @@ public class Monde {
 		this.nexus = new Nexus(50, 0);
 		Portail p1 = new Portail(50, 400, 5, 20);
 		lesPortails.add(p1);
+
+		try {
+			carte = ImageIO.read(new File("src/images/carteTest.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		// On fait bien toutes les initialisations AVANT la creation du Tick qui va declencher les update
 		
@@ -73,7 +83,9 @@ public class Monde {
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	public void deplacerHero(int x, int y){
-		Hero.getHero1().deplacer(x, y);
+		if (!Hero.getHero1().testCollisionMur(carte, x, y)) {
+			Hero.getHero1().deplacer(x, y);
+		}
 	}
 	
 	/**
@@ -143,7 +155,8 @@ public class Monde {
 			else // xMonstre == XNexus
 				deplacementY = 0;
 			
-			m.deplacer(deplacementX, deplacementY);
+			if (!m.testCollisionMur(carte, deplacementX, deplacementY));
+				m.deplacer(deplacementX, deplacementY);
 		}
 	}
 	
@@ -183,7 +196,7 @@ public class Monde {
 			deplacementMonstres();
 			collisionMonstres();
 			checkInvocationMonstres();
-			System.out.println(this.toString());
+			//System.out.println(this.toString());
 		}else {
 			System.out.println("Nexus détruit. Vous avez perdu.");
 			System.out.println("PERDU !!");
@@ -206,8 +219,7 @@ public class Monde {
 
 	// fonction d'affichage du monde
 	public void dessiner(Graphics2D g) {
-		g.setBackground(Color.BLACK);
-		g.fill(arrierePlan);
+		g.drawImage(carte, 0, 0, null);
 
 		nexus.dessiner(g);
 
