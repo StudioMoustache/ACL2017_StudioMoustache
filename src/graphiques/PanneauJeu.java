@@ -10,22 +10,21 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 public class PanneauJeu extends JPanel implements KeyListener {
-	private MainFrame frame;
+	private MainFrame fenetre;
 	private Monde monde;
 	private Tick tick;
 
 	public PanneauJeu(Monde m, MainFrame f) {
 		super();
 
-		// Chaque panel connait la frame pour changer de panel dans l'application
-		frame = f;
+		// Chaque panel connait la fenetre pour changer de panel dans l'application
+		fenetre = f;
+		fenetre.addKeyListener(this);
 
 		// Le panel de jeu connait le monde pour le dessiner
 		monde = m;
 
 		tick = new Tick(monde, this);
-
-		addKeyListener(this);
 	}
 
 	public void keyPressed(KeyEvent e) {

@@ -218,5 +218,7 @@ public class Monde {
 		for (Monstre m : lesMonstres) {
 			m.dessiner(g);
 		}
+
+		Hero.getHero1().dessiner(g);
 	}
 }
