@@ -119,4 +119,8 @@ public class PanneauJeu extends JPanel {
 		monde.dessiner(g2D);
 	}
 
+	public void startUpdate(){
+		tick.start();
+	}
+
 }

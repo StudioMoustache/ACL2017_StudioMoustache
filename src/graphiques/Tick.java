@@ -29,7 +29,6 @@ public class Tick implements ActionListener {
 		this.monde = monde;
 		panneauJeu = pj;
 		this.timer = new Timer(REFRESH, (ActionListener) this);
-		timer.start();
 	}
 
 
@@ -37,5 +36,9 @@ public class Tick implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		this.monde.update();	
 		panneauJeu.repaint();
+	}
+
+	public void start(){
+		timer.start();
 	}
 }

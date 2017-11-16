@@ -19,6 +19,7 @@ public class Monde {
 	private ArrayList<Monstre> lesMonstres;
 	private ArrayList<Portail> lesPortails;
 	private Nexus nexus;
+	private int vague;
 	private final int HAUTEUR = 500;
 	private final int LARGEUR = 500;
 	
@@ -76,8 +77,15 @@ public class Monde {
 			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
 				invoquerMonstre(p);
 			}
-				
+			// if(lesMonstres.isEmpty()){
+			// 	incrementeVague();
+			// 	p.rechargerPortail(this.vague);
+			// }
 		}
+	}
+
+	public void incrementeVague(){
+		this.vague += 1;
 	}
 	
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
@@ -196,6 +204,7 @@ public class Monde {
 			deplacementMonstres();
 			collisionMonstres();
 			checkInvocationMonstres();
+			//System.out.println("Vague:"+vague);
 			//System.out.println(this.toString());
 		}else {
 			System.out.println("Nexus d�truit. Vous avez perdu.");
