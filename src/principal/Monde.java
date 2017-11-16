@@ -24,6 +24,7 @@ public class Monde {
 	private final int LARGEUR = 500;
 	
 	boolean perdu = false;
+	boolean paused = false;
 	
 	private int nbUpdates;
 
@@ -91,7 +92,7 @@ public class Monde {
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	public void deplacerHero(int x, int y){
-		if (!Hero.getHero1().testCollisionMur(carte, x, y)) {
+		if (!Hero.getHero1().testCollisionMur(carte, x, y) && !isPaused()) {
 			Hero.getHero1().deplacer(x, y);
 		}
 	}
@@ -199,17 +200,19 @@ public class Monde {
 	
 	// A chaque Tick (rafraichissement), on deplace les monstres et on teste les collisions
 	public void update(){
-		if(!perdu) {
-			nbUpdates += 1;
-			deplacementMonstres();
-			collisionMonstres();
-			checkInvocationMonstres();
-			//System.out.println("Vague:"+vague);
-			//System.out.println(this.toString());
-		}else {
-			System.out.println("Nexus d�truit. Vous avez perdu.");
-			System.out.println("PERDU !!");
-			System.exit(0);
+		if(!paused) {
+			if(!perdu) {
+				nbUpdates += 1;
+				deplacementMonstres();
+				collisionMonstres();
+				checkInvocationMonstres();
+				//System.out.println("Vague:"+vague);
+				//System.out.println(this.toString());
+			}else {
+				System.out.println("Nexus detruit. Vous avez perdu.");
+				System.out.println("PERDU !!");
+				System.exit(0);
+			}
 		}
 	}
 	
@@ -241,5 +244,13 @@ public class Monde {
 		}
 
 		Hero.getHero1().dessiner(g);
+	}
+	
+	public boolean isPaused() {
+		return paused;
+	}
+	
+	public void setPause() {
+		paused = !paused;
 	}
 }

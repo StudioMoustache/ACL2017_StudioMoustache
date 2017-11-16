@@ -22,6 +22,7 @@ public class PanneauJeu extends JPanel {
 		fenetre = f;
 		
 		mkl=new MultipleKeyListener();
+		mkl.setMonde(m);
 		fenetre.addKeyListener(mkl);
 		// Le panel de jeu connait le monde pour le dessiner
 		monde = m;
@@ -113,7 +114,7 @@ public class PanneauJeu extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		mkl.deplacement(monde);
+		mkl.deplacement();
 		Graphics2D g2D = (Graphics2D)g;
 
 		monde.dessiner(g2D);
