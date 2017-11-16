@@ -198,7 +198,7 @@ public class Monde {
 			checkInvocationMonstres();
 			//System.out.println(this.toString());
 		}else {
-			System.out.println("Nexus détruit. Vous avez perdu.");
+			System.out.println("Nexus dï¿½truit. Vous avez perdu.");
 			System.out.println("PERDU !!");
 			System.exit(0);
 		}

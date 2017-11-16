@@ -11,13 +11,13 @@ import principal.Monde;
 
 /**
  * 
- * Classe utilisée pour automatiquement update le monde (et ensuite la frame) tous les REFRESH temps (en ms)
+ * Classe utilisï¿½e pour automatiquement update le monde (et ensuite la frame) tous les REFRESH temps (en ms)
  *
  */
 public class Tick implements ActionListener {
 	private Monde monde;
 	private Timer timer;
-	private final int REFRESH = 20;
+	private final int REFRESH = 50;
 
 	// permet l'appel du dessin du monde
 	private PanneauJeu panneauJeu;

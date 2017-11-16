@@ -11,7 +11,7 @@ public class Hero {
 	private int y;
 	private static int vitesse;
 	
-	private static Hero hero1 = new Hero(250,250,1);
+	private static Hero hero1 = new Hero(55,55,1);
 	private static Hero hero2 = new Hero(250,250,1);
 
 	private AffichageSprite sprite = new AffichageSprite(Color.BLUE);

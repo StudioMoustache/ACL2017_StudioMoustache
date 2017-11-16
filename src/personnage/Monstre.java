@@ -20,7 +20,7 @@ public class Monstre {
 	public Monstre(){
 		this.x = 0;
 		this.y = 0;
-		this.vitesse = 20;
+		this.vitesse = 1;
 	}
 	
 	public Monstre(int x, int y) {
