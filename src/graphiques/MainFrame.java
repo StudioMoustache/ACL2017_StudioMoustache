@@ -40,5 +40,6 @@ public class MainFrame extends JFrame {
 
 	public void setPanneauJeu() {
 		setContentPane(panneauJeu);
+		panneauJeu.startUpdate();
 	}
 }

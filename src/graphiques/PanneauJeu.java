@@ -63,4 +63,8 @@ public class PanneauJeu extends JPanel implements KeyListener {
 		monde.dessiner(g2D);
 	}
 
+	public void startUpdate(){
+		tick.start();
+	}
+
 }

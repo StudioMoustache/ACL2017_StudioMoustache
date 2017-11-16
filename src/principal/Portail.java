@@ -54,7 +54,16 @@ public class Portail {
 	public void decMonstres() {
 		this.nbMonstres -= 1;
 	}
-	
+
+	/**
+	 * Recharge les monstres
+	 */
+
+	public void rechargerPortail(int vague) {
+		this.nbMonstres = 10+vague;
+	}
+
+
 	
 	// ------ Getters & Setters
 	
