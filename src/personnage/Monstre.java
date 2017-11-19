@@ -10,8 +10,8 @@ import graphiques.AffichageSprite;
 public class Monstre {
 	private int x;
 	private int y;
+	private int valeurPoint; //le nombre de point que le hero gagne en tuant le monstre
 	private static int vitesse;
-
 	private AffichageSprite sprite = new AffichageSprite(Color.RED);
 	
 	
@@ -21,18 +21,21 @@ public class Monstre {
 		this.x = 0;
 		this.y = 0;
 		this.vitesse = 1;
+		this.valeurPoint=10; //le nombre de point que le hero gagne en tuant le monstre est de 10 de base
 	}
 	
 	public Monstre(int x, int y) {
 		this.x = x;
 		this.y = y;
 		this.vitesse = 1;
+		this.valeurPoint=10;
 	}
 	
 	public Monstre(int x, int y, int vitesse){;
 		this.x = x;
 		this.y = y;
 		this.vitesse = vitesse;
+		this.valeurPoint=10;
 	}
 
 	
@@ -46,6 +49,10 @@ public class Monstre {
 	
 	// ----- Getters & Setters ----- 
 	
+	
+	public int getValeurPoint(){
+		return valeurPoint;
+	}
 	public int getVitesse() {
 		return vitesse;
 	}

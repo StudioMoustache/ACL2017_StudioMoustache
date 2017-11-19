@@ -9,8 +9,8 @@ import graphiques.AffichageSprite;
 public class Hero {
 	private int x;
 	private int y;
+	private int score;
 	private static int vitesse;
-	
 	private static Hero hero1 = new Hero(55,55,1);
 	private static Hero hero2 = new Hero(250,250,1);
 
@@ -22,12 +22,14 @@ public class Hero {
 		this.x = 0;
 		this.y = 0;
 		this.vitesse = 1;
+		this.score=0;
 	}
 	
 	private Hero(int x, int y, int vitesse){
 		this.x = x;
 		this.y = y;
 		this.vitesse = vitesse;
+		this.score=0;
 	}
 	
 	
@@ -122,5 +124,16 @@ public class Hero {
 		}
 		
 		return collision;
+	}
+	/**
+	 * méthode pour mettre à jour les points du héro
+	 * @param point le nombre de point à ajouter au score
+	 */
+	public void gainPoint(int points){
+		this.score+=points;
+		System.out.println(score);
+	}
+	public int getScore(){
+		return this.score;
 	}
 }

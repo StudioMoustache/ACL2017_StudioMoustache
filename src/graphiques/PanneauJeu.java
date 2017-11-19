@@ -6,6 +6,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import personnage.Hero;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -14,20 +19,32 @@ public class PanneauJeu extends JPanel {
 	private Monde monde;
 	private Tick tick;
 	private MultipleKeyListener mkl;
+	private JTextField scoreJ1;
+	private JTextField scoreJ2;
 
 	public PanneauJeu(Monde m, MainFrame f) {
 		super();
 
 		// Chaque panel connait la fenetre pour changer de panel dans l'application
 		fenetre = f;
+		mkl=new MultipleKeyListener(m);
 		
-		mkl=new MultipleKeyListener();
-		mkl.setMonde(m);
+		
 		fenetre.addKeyListener(mkl);
 		// Le panel de jeu connait le monde pour le dessiner
 		monde = m;
 
 		tick = new Tick(monde, this);
+		
+		Dimension dimensionScore=new Dimension(50,20);//TODO Une fenetre de score adaptable a la taille de la fenetre de jeu
+		scoreJ1=new JTextField();
+		scoreJ2=new JTextField();
+		scoreJ1.setText(""+0);
+		scoreJ2.setText(""+0);
+		scoreJ1.setPreferredSize(dimensionScore);
+		scoreJ2.setPreferredSize(dimensionScore);
+		this.add(scoreJ1);
+		this.add(scoreJ2);
 	}
 
 	
@@ -114,12 +131,16 @@ public class PanneauJeu extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		monde.update();
 		mkl.deplacement();
+		
 		Graphics2D g2D = (Graphics2D)g;
 
 		monde.dessiner(g2D);
+		scoreJ1.setText(""+Hero.getHero1().getScore()); //Un peu dégeulasse, mais ca marche, je pense qu'il y a un truc a faire avec les ActionsListener
+		scoreJ2.setText(""+Hero.getHero2().getScore());
 	}
-
+	
 	public void startUpdate(){
 		tick.start();
 	}

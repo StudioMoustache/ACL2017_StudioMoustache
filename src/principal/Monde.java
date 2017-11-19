@@ -172,7 +172,7 @@ public class Monde {
 	
 	// -------------------- GESTION DES COLLISIONS --------------------
 	
-	// Rassemblement du balayage des monstres en une seule fonction ne le faire qu'une fois par fonction de collision
+	// Rassemblementu
 	public void collisionMonstres() {
 		// foreach impossible car conflit d'utilisation quand on delete le monstre
 		for(int i = 0; i < lesMonstres.size(); i++) {
@@ -183,8 +183,11 @@ public class Monde {
 	}
 	
 	public void collisionHeroMonstre(Monstre m, int i) { // volontairement simpliste pour l'instant. HitBox a prendre en compte plus tard
-		if(m.getX() == Hero.getHero1().getX() && m.getY() == Hero.getHero1().getY())
+		if(m.getX() == Hero.getHero1().getX() && m.getY() == Hero.getHero1().getY()){
 			lesMonstres.remove(i);
+			Hero.getHero1().gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur 1
+		}
+		//TODO ne pas utiliser getHero1 : il faudrait savoir lequel des deux joueur a tuer le monstre
 	
 	}
 

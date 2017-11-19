@@ -12,7 +12,12 @@ import principal.Monde;
 public class MultipleKeyListener implements KeyListener {
 	private Monde m;
 	
+	
 	private final TreeSet<Integer>pressed =new TreeSet<Integer>();
+	
+	public MultipleKeyListener(Monde m){
+		this.m=m;
+	}
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub

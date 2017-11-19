@@ -34,7 +34,7 @@ public class Tick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.monde.update();	
+		//this.monde.update();	
 		panneauJeu.repaint();
 	}
 
