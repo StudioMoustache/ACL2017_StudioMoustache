@@ -1,46 +1,24 @@
 package personnage;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 import graphiques.AffichageSprite;
 
 
-public class Monstre {
-	private int x;
-	private int y;
-	private static int vitesse;
-
-	private AffichageSprite sprite = new AffichageSprite(Color.RED);
-	
+public class Monstre extends Personnage {
 	
 	// ----- Constructeurs -----
 	
 	public Monstre(){
-		this.x = 0;
-		this.y = 0;
-		this.vitesse = 20;
+		super(0, 0, 20, new AffichageSprite(Color.RED));
 	}
 	
 	public Monstre(int x, int y) {
-		this.x = x;
-		this.y = y;
-		this.vitesse = 1;
+		super(x, y, 1, new AffichageSprite(Color.RED));
 	}
 	
-	public Monstre(int x, int y, int vitesse){;
-		this.x = x;
-		this.y = y;
-		this.vitesse = vitesse;
-	}
-
-	
-	// ----- Fonctions -----
-	
-	public void deplacer(int x, int y){
-		this.x += x;
-		this.y += y;
+	public Monstre(int x, int y, int vitesse){
+		super(x, y, vitesse, new AffichageSprite(Color.RED));
 	}
 	
 	
@@ -73,53 +51,4 @@ public class Monstre {
 	public String toString(){
 		return "Monstre("+this.getX()+":"+this.getY()+")";
 	}
-
-	// fonction d'affichage
-	public void dessiner(Graphics2D g) {
-		sprite.dessiner(g, x, y);
-	}
-
-	public boolean testCollisionMur(BufferedImage bi, int deplacementx, int deplacementy) {
-
-		boolean collision = false;
-		boolean tour = false;
-
-		int nouveauX = x+deplacementx;
-		int nouveauY = y+deplacementy;
-
-		int currentpixelX = nouveauX, currentpixelY = nouveauY;
-		int signeX = 1, signeY = 0;
-
-		while (!tour && !collision) {
-			if (currentpixelX == nouveauX + sprite.getWidth()-1 && currentpixelY == nouveauY) {
-				signeX = 0;
-				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
-				signeY = 1;
-			}
-
-			if (currentpixelX == nouveauX + sprite.getWidth()-1 && currentpixelY == nouveauY + sprite.getHeight()-1) {
-				signeX = -1;
-				signeY = 0;
-			}
-
-			if (currentpixelX == nouveauX && currentpixelY == nouveauY + sprite.getHeight()-1) {
-				signeX = 0;
-				signeY = -1;
-			}
-
-			if ((0x000000FF & bi.getRGB(currentpixelX, currentpixelY)) == 0) {
-				collision = true;
-			}
-
-			currentpixelX += signeX;
-			currentpixelY += signeY;
-
-			if (currentpixelX == nouveauX && currentpixelY == nouveauY) {
-				tour = true;
-			}
-		}
-		
-		return collision;
-	}
-	
 }

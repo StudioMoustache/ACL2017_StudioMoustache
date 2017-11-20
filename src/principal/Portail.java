@@ -23,7 +23,7 @@ public class Portail {
 	private int nbMonstres;
 	private int frequence;
 	
-	private AffichageSprite sprite = new AffichageSprite(Color.WHITE);
+	private AffichageSprite sprite = new AffichageSprite(Color.GRAY);
 
 	/**
 	 * Constructeurs sans frequence

@@ -36,13 +36,13 @@ public class Monde {
 		nbUpdates = 0;
 		
 		this.nexus = new Nexus(50, 0);
-		Portail p1 = new Portail(50, 400, 5, 20);
+		Portail p1 = new Portail(50, 450, 5, 20);
 		lesPortails.add(p1);
 
 		try {
 			carte = ImageIO.read(new File("src/images/carteTest.png"));
 		} catch (IOException e) {
-			e.printStackTrace();
+			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		}
 		
 		// On fait bien toutes les initialisations AVANT la creation du Tick qui va declencher les update
@@ -83,9 +83,7 @@ public class Monde {
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	public void deplacerHero(int x, int y){
-		if (!Hero.getHero1().testCollisionMur(carte, x, y)) {
-			Hero.getHero1().deplacer(x, y);
-		}
+		Hero.getHero1().calculTrajectoire(carte, x, y);
 	}
 	
 	/**
@@ -132,31 +130,28 @@ public class Monde {
 		int yMonstre;
 		int deplacementX;
 		int deplacementY;
-		int vitesse;
 		for(Monstre m : lesMonstres) {		
 			xNexus = nexus.getX();
 			yNexus = nexus.getY();
 			
 			xMonstre = m.getX();
 			yMonstre = m.getY();
-			
-			vitesse = m.getVitesse();
+
 			if(xNexus < xMonstre)
-				deplacementX = -vitesse;
+				deplacementX = -1;
 			else if(xNexus > xMonstre)
-				deplacementX = vitesse;
+				deplacementX = 1;
 			else // xMonstre == XNexus
 				deplacementX = 0;
 			
 			if(yNexus < yMonstre)
-				deplacementY = -vitesse;
+				deplacementY = -1;
 			else if(yNexus > yMonstre)
-				deplacementY = vitesse;
+				deplacementY = 1;
 			else // xMonstre == XNexus
 				deplacementY = 0;
 			
-			if (!m.testCollisionMur(carte, deplacementX, deplacementY));
-				m.deplacer(deplacementX, deplacementY);
+			m.calculTrajectoire(carte, deplacementX, deplacementY);
 		}
 	}
 	

@@ -30,6 +30,12 @@ public class MainFrame extends JFrame {
 		// initialement le premier panel est celui du menu d'avant-jeu
 		setPanneauMenu();
 
+		// enlève le bord de fenetre de l'OS
+		setUndecorated(true);
+
+		// place la fenêtre en 50, 50
+		setLocation(50, 50);
+
 		pack();
 		setVisible(true);
 	}
