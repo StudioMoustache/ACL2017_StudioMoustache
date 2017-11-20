@@ -19,10 +19,12 @@ public class Monde {
 	private ArrayList<Monstre> lesMonstres;
 	private ArrayList<Portail> lesPortails;
 	private Nexus nexus;
+	private int vague;
 	private final int HAUTEUR = 500;
 	private final int LARGEUR = 500;
 	
 	boolean perdu = false;
+	boolean paused = false;
 	
 	private int nbUpdates;
 
@@ -76,14 +78,23 @@ public class Monde {
 			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
 				invoquerMonstre(p);
 			}
-				
+			// if(lesMonstres.isEmpty()){
+			// 	incrementeVague();
+			// 	p.rechargerPortail(this.vague);
+			// }
 		}
+	}
+
+	public void incrementeVague(){
+		this.vague += 1;
 	}
 	
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	public void deplacerHero(int x, int y){
-		Hero.getHero1().calculTrajectoire(carte, x, y);
+		if (!isPaused()) {
+			Hero.getHero1().calculTrajectoire(carte, x, y);
+		}
 	}
 	
 	/**
@@ -158,7 +169,7 @@ public class Monde {
 	
 	// -------------------- GESTION DES COLLISIONS --------------------
 	
-	// Rassemblement du balayage des monstres en une seule fonction ne le faire qu'une fois par fonction de collision
+	// Rassemblementu
 	public void collisionMonstres() {
 		// foreach impossible car conflit d'utilisation quand on delete le monstre
 		for(int i = 0; i < lesMonstres.size(); i++) {
@@ -169,8 +180,11 @@ public class Monde {
 	}
 	
 	public void collisionHeroMonstre(Monstre m, int i) { // volontairement simpliste pour l'instant. HitBox a prendre en compte plus tard
-		if(m.getX() == Hero.getHero1().getX() && m.getY() == Hero.getHero1().getY())
+		if(m.getX() == Hero.getHero1().getX() && m.getY() == Hero.getHero1().getY()){
 			lesMonstres.remove(i);
+			Hero.getHero1().gainPoint(m.getValeurPoint());// ajout des point du monstre tuÃ©, aux score du joueur 1
+		}
+		//TODO ne pas utiliser getHero1 : il faudrait savoir lequel des deux joueur a tuer le monstre
 	
 	}
 
@@ -186,16 +200,19 @@ public class Monde {
 	
 	// A chaque Tick (rafraichissement), on deplace les monstres et on teste les collisions
 	public void update(){
-		if(!perdu) {
-			nbUpdates += 1;
-			deplacementMonstres();
-			collisionMonstres();
-			checkInvocationMonstres();
-			//System.out.println(this.toString());
-		}else {
-			System.out.println("Nexus détruit. Vous avez perdu.");
-			System.out.println("PERDU !!");
-			System.exit(0);
+		if(!paused) {
+			if(!perdu) {
+				nbUpdates += 1;
+				deplacementMonstres();
+				collisionMonstres();
+				checkInvocationMonstres();
+				//System.out.println("Vague:"+vague);
+				//System.out.println(this.toString());
+			}else {
+				System.out.println("Nexus detruit. Vous avez perdu.");
+				System.out.println("PERDU !!");
+				System.exit(0);
+			}
 		}
 	}
 	
@@ -227,5 +244,13 @@ public class Monde {
 		}
 
 		Hero.getHero1().dessiner(g);
+	}
+	
+	public boolean isPaused() {
+		return paused;
+	}
+	
+	public void setPause() {
+		paused = !paused;
 	}
 }
