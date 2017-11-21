@@ -8,12 +8,16 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.JLabel;
+
 
 public class PanneauJeu extends JPanel {
 	private MainFrame fenetre;
 	private Monde monde;
 	private Tick tick;
 	private MultipleKeyListener mkl;
+	private JLabel panneauVagues;
+
 
 	public PanneauJeu(Monde m, MainFrame f) {
 		super();
@@ -26,6 +30,9 @@ public class PanneauJeu extends JPanel {
 		fenetre.addKeyListener(mkl);
 		// Le panel de jeu connait le monde pour le dessiner
 		monde = m;
+
+		panneauVagues = new JLabel("Vague : "+m.getVague());
+		add(panneauVagues);
 
 		tick = new Tick(monde, this);
 	}
@@ -110,13 +117,15 @@ public class PanneauJeu extends JPanel {
 		// TODO Auto-generated method stub
 
 	}*/
+
+
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		mkl.deplacement();
 		Graphics2D g2D = (Graphics2D)g;
-
+		panneauVagues.setText("Vague : "+monde.getVague());
 		monde.dessiner(g2D);
 	}
 
