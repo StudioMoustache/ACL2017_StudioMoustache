@@ -25,7 +25,8 @@ public class Monde {
 	
 	boolean perdu = false;
 	boolean paused = false;
-	
+	boolean debutVague = false;
+
 	private int nbUpdates;
 
 	private BufferedImage carte;
@@ -77,11 +78,13 @@ public class Monde {
 			// si il reste des monstres au portail et si c'est l'heure pour lui d'invoquer un monstre
 			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
 				invoquerMonstre(p);
+				debutVague = true;
 			}
-			// if(lesMonstres.isEmpty()){
-			// 	incrementeVague();
-			// 	p.rechargerPortail(this.vague);
-			// }
+			if(lesMonstres.isEmpty() && debutVague){
+				debutVague = false;
+			 	incrementeVague();
+			 	p.rechargerPortail(this.vague);
+			}
 		}
 	}
 
@@ -206,7 +209,6 @@ public class Monde {
 				deplacementMonstres();
 				collisionMonstres();
 				checkInvocationMonstres();
-				//System.out.println("Vague:"+vague);
 				//System.out.println(this.toString());
 			}else {
 				System.out.println("Nexus detruit. Vous avez perdu.");
@@ -252,5 +254,9 @@ public class Monde {
 	
 	public void setPause() {
 		paused = !paused;
+	}
+
+	public int getVague() {
+		return vague;
 	}
 }

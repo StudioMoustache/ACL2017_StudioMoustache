@@ -13,6 +13,8 @@ import personnage.Hero;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.JLabel;
+
 
 public class PanneauJeu extends JPanel {
 	private MainFrame fenetre;
@@ -21,6 +23,8 @@ public class PanneauJeu extends JPanel {
 	private MultipleKeyListener mkl;
 	private JTextField scoreJ1;
 	private JTextField scoreJ2;
+	private JLabel panneauVagues;
+
 
 	public PanneauJeu(Monde m, MainFrame f) {
 		super();
@@ -33,6 +37,9 @@ public class PanneauJeu extends JPanel {
 		fenetre.addKeyListener(mkl);
 		// Le panel de jeu connait le monde pour le dessiner
 		monde = m;
+
+		panneauVagues = new JLabel("Vague : "+m.getVague());
+		add(panneauVagues);
 
 		tick = new Tick(monde, this);
 		
@@ -127,6 +134,8 @@ public class PanneauJeu extends JPanel {
 		// TODO Auto-generated method stub
 
 	}*/
+
+
 	
 	@Override
 	public void paintComponent(Graphics g) {
@@ -135,7 +144,7 @@ public class PanneauJeu extends JPanel {
 		mkl.deplacement();
 		
 		Graphics2D g2D = (Graphics2D)g;
-
+		panneauVagues.setText("Vague : "+monde.getVague());
 		monde.dessiner(g2D);
 		scoreJ1.setText(""+Hero.getHero1().getScore()); //Un peu dégeulasse, mais ca marche, je pense qu'il y a un truc a faire avec les ActionsListener
 		scoreJ2.setText(""+Hero.getHero2().getScore());

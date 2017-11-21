@@ -6,6 +6,9 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+
+
+
 import principal.Monde;
 
 public class MainFrame extends JFrame {
@@ -26,6 +29,7 @@ public class MainFrame extends JFrame {
 		panneauMenu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		panneauJeu = new PanneauJeu(monde, this);
 		panneauJeu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+
 
 		// initialement le premier panel est celui du menu d'avant-jeu
 		setPanneauMenu();
