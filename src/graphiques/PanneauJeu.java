@@ -23,6 +23,7 @@ public class PanneauJeu extends JPanel {
 	private MultipleKeyListener mkl;
 	private JTextField scoreJ1;
 	private JTextField scoreJ2;
+
 	private JLabel panneauVagues;
 
 
