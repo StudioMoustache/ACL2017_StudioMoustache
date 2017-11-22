@@ -22,7 +22,7 @@ public class Nexus {
 	public Nexus(int x, int y) {
 		this.x = x;
 		this.y = y;
-		this.vie = 1;
+		this.vie = 3;
 	}
 	
 	
@@ -35,6 +35,10 @@ public class Nexus {
 	public void retirerVie(int degats) {
 		vie -= degats;
 	}
+
+	public boolean estVivant() {
+		return vie != 0;
+	}
 	
 	// ----- Getters & Setters
 	
@@ -44,6 +48,14 @@ public class Nexus {
 	
 	public int getY() {
 		return this.y;
+	}
+
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	public int getHeight() {
+		return sprite.getHeight();
 	}
 	
 	/**
