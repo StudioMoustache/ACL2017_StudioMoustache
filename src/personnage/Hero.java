@@ -3,24 +3,36 @@ package personnage;
 import java.awt.Color;
 
 import graphiques.AffichageSprite;
+import principal.Monde;
 
 public class Hero extends Personnage {
 	
-	private static Hero hero1 = new Hero(250,250, 10);
-	private static Hero hero2 = new Hero(250,250, 10);
+	private static Hero hero1;
+	private static Hero hero2;
 
-	int score;
+	private int score;
 	
 	// ----- Constructeurs ------
 	
-	private Hero(){
-		super(0, 0, 10, new AffichageSprite(Color.BLUE));
+	private Hero(Monde monde){
+		super(0, 0, 10, new AffichageSprite(Color.BLUE), monde);
 		this.score = 0;
 	}
 	
-	private Hero(int x, int y, int vitesse){
-		super(x, y, vitesse, new AffichageSprite(Color.BLUE));
+	private Hero(int x, int y, int vitesse, Monde monde){
+		super(x, y, vitesse, new AffichageSprite(Color.BLUE), monde);
 		this.score = 0;
+	}
+
+	// ----- Fonction ------ //
+
+	public static void initialisationHeros(Monde monde) {
+		hero1 = new Hero(250, 250, 5, monde);
+		hero2 = new Hero(250, 250, 5, monde);
+	}
+
+	public void collisionObjectif(int x, int y) {
+		monde.collisionHeroMonstres(this, x, y);
 	}
 	
 	// ----- Getters & Setters ----- //

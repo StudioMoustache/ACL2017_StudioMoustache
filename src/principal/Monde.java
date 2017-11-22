@@ -38,10 +38,13 @@ public class Monde {
 		this.lesPortails = new ArrayList<Portail>();
 		nbUpdates = 0;
 		
-		this.nexus = new Nexus(50, 0);
+		this.nexus = new Nexus(50,50);
 		Portail p1 = new Portail(50, 450, 5, 20);
 		lesPortails.add(p1);
 
+		Hero.initialisationHeros(this);
+
+		// récupération du fichier contenant la carte du monde
 		try {
 			carte = ImageIO.read(new File("src/images/carteTest.png"));
 		} catch (IOException e) {
@@ -65,7 +68,7 @@ public class Monde {
 	public void invoquerMonstre(Portail p){
 		if(p.getNbMonstres() > 0) {
 			p.decMonstres();
-			Monstre m = new Monstre(p.getX(), p.getY());
+			Monstre m = new Monstre(p.getX(), p.getY(), this);
 			lesMonstres.add(m);
 		}
 	}
@@ -144,7 +147,9 @@ public class Monde {
 		int yMonstre;
 		int deplacementX;
 		int deplacementY;
-		for(Monstre m : lesMonstres) {		
+		for(int i=0; i<lesMonstres.size(); i++) {
+			Monstre m = lesMonstres.get(i);
+
 			xNexus = nexus.getX();
 			yNexus = nexus.getY();
 			
@@ -171,30 +176,36 @@ public class Monde {
 	
 	
 	// -------------------- GESTION DES COLLISIONS --------------------
-	
-	// Rassemblementu
-	public void collisionMonstres() {
-		// foreach impossible car conflit d'utilisation quand on delete le monstre
-		for(int i = 0; i < lesMonstres.size(); i++) {
-			Monstre m = lesMonstres.get(i);		
-			collisionHeroMonstre(m, i);
-			collisionMonstreNexus(m, i);
+
+	// Fonction appelée par une instance de Montre lors de son déplacement
+	public void collisionMonstreNexus(Monstre m, int x, int y) {
+		int xMonstre = m.getX() + m.getWidth()/2;
+		int yMonstre = m.getY() + m.getHeight()/2;
+
+		if ((xMonstre >= this.nexus.getX() && xMonstre <= this.nexus.getX() + this.nexus.getWidth()) && 
+			(yMonstre >= this.nexus.getY() && yMonstre <= this.nexus.getY() + this.nexus.getHeight())) {
+
+			lesMonstres.remove(m);
+			this.nexus.retirerVie(1);
 		}
-	}
-	
-	public void collisionHeroMonstre(Monstre m, int i) { // volontairement simpliste pour l'instant. HitBox a prendre en compte plus tard
-		if(m.getX() == Hero.getHero1().getX() && m.getY() == Hero.getHero1().getY()){
-			lesMonstres.remove(i);
-			Hero.getHero1().gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur 1
-		}
-		//TODO ne pas utiliser getHero1 : il faudrait savoir lequel des deux joueur a tuer le monstre
-	
 	}
 
-	public void collisionMonstreNexus(Monstre m, int i) {
-		if(m.getX() == this.nexus.getX() && m.getY() == nexus.getY()) {
-			lesMonstres.remove(i);
-			this.perdu = true;
+	// Fonction de vérification de collision entre le héro et un ou plusieurs monstre(s)
+	// x, y : position courante du héro
+	public void collisionHeroMonstres(Hero hero, int x, int y) {
+		for (int i = 0; i < lesMonstres.size() ; i++) {
+			collisionHeroMonstre(hero, lesMonstres.get(i), x, y);
+		}
+	}
+	
+	public void collisionHeroMonstre(Hero hero, Monstre m, int x, int y) {
+		int xMonstre = m.getX() + m.getWidth()/2;
+		int yMonstre = m.getY() + m.getHeight()/2;
+
+		if ((xMonstre >= hero.getX() && xMonstre <= hero.getX() + hero.getWidth()) && 
+			(yMonstre >= hero.getY() && yMonstre  <= hero.getY() + hero.getHeight())) {
+			lesMonstres.remove(m);
+			hero.gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur 1
 		}
 	}
 	
@@ -207,9 +218,12 @@ public class Monde {
 			if(!perdu) {
 				nbUpdates += 1;
 				deplacementMonstres();
-				collisionMonstres();
 				checkInvocationMonstres();
 				//System.out.println(this.toString());
+
+				if (!this.nexus.estVivant()) {
+					this.perdu = true;
+				}
 			}else {
 				System.out.println("Nexus detruit. Vous avez perdu.");
 				System.out.println("PERDU !!");

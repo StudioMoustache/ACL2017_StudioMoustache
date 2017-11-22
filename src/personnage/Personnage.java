@@ -1,7 +1,7 @@
 package personnage;
 
 import graphiques.AffichageSprite;
-
+import principal.Monde;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -11,15 +11,20 @@ public abstract class Personnage {
 	protected int y;
 	protected int vitesse;
 
+	// Un personnage connait le monde dans lequel il se trouve
+	protected Monde monde;
+
+	// Classe permettant de dessiner le personnage
 	protected AffichageSprite sprite;
 
 	// ------ CONSTRUCTEUR ------ // 
 
-	public Personnage(int x, int y, int vitesse, AffichageSprite s) {
+	public Personnage(int x, int y, int vitesse, AffichageSprite sprite, Monde monde) {
 		this.x = x;
 		this.y = y;
 		this.vitesse = vitesse;
-		sprite = s;
+		this.sprite = sprite;
+		this.monde = monde;
 	}
 
 	// ------ GETTERS & SETTERS ------ //
@@ -48,12 +53,29 @@ public abstract class Personnage {
 		this.y = y;
 	}
 
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	public int getHeight() {
+		return sprite.getHeight();
+	}
+
 	// ----- Fonctions -----
 	
 	public void deplacer(int x, int y){
 		this.x += x;
 		this.y += y;
 	}
+
+	// ----- FONCTION ABSTRAITE ----- // 
+
+	// Fonction de verification de collision avec l'objectif
+	// Objectif : 
+	// 	Hero -> les monstres
+	// 	Monstre -> le(s) nexus
+	// x, y : position courante du personnage
+	public abstract void collisionObjectif(int x, int y);
 
 	// ----- FONCTION DE COLLISION AVEC MUR ----- //
 
@@ -70,29 +92,32 @@ public abstract class Personnage {
 		// signeX = 1, on parcourt les X de gauche à droite
 		// signeY = 1, on parcourt les Y de haut en bas (inversé avec swing)
 		while (!tour && !collision) {
+			// Parcours de la partie droite du carré
 			if (currentpixelX == x + sprite.getWidth()-1 && currentpixelY == y) {
 				signeX = 0;
 				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
 				signeY = 1;
 			}
 
+			// Parcours de la partie basse du carré
 			if (currentpixelX == x + sprite.getWidth()-1 && currentpixelY == y + sprite.getHeight()-1) {
 				signeX = -1;
 				signeY = 0;
 			}
 
+			// Parcours de la partie gauche du carré
 			if (currentpixelX == x && currentpixelY == y + sprite.getHeight()-1) {
 				signeX = 0;
 				signeY = -1;
-			}
+			}	
 
 			// Le pixel courant est dans une partie noire de la map = collision
 			if ((0x000000FF & bi.getRGB(currentpixelX, currentpixelY)) == 0) {
 				collision = true;
+			} else {
+				currentpixelX += signeX;
+				currentpixelY += signeY;
 			}
-
-			currentpixelX += signeX;
-			currentpixelY += signeY;
 
 			// Le pixel courant est le pixel de départ, donc on a fait un tour, pas de collision détectée
 			if (currentpixelX == x && currentpixelY == y) {
@@ -105,6 +130,7 @@ public abstract class Personnage {
 
 	// cette fonction parcourt les pixels de la trajectoire du personnage un par un pour l'arrêter 
 	// lorsqu'il est contre un mur
+	// categoriePersonnage permet de savoir si la fonction est appelée par un héro ou pas un monstre
 	public void calculTrajectoire(BufferedImage bi, int deplacementx, int deplacementy) {
 		boolean collision = false;
 		int xArrivee = x + (deplacementx*vitesse);
@@ -122,6 +148,10 @@ public abstract class Personnage {
 				x -= deplacementx;
 				y -= deplacementy;
 			}
+
+			// Appelle de la fonction de vérification de collision avec l'objectif du personnage
+			// qui appelle cette fonction
+			collisionObjectif(x, y);
 
 			// On est arrivé à la position max de la trajectoire donc 
 			// on ne teste plus la collision

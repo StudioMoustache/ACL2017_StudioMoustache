@@ -3,6 +3,7 @@ package personnage;
 import java.awt.Color;
 
 import graphiques.AffichageSprite;
+import principal.Monde;
 
 public class Monstre extends Personnage {
 	private int x;
@@ -13,19 +14,25 @@ public class Monstre extends Personnage {
 	
 	// ----- Constructeurs -----
 	
-	public Monstre(){
-		super(0, 0, 20, new AffichageSprite(Color.RED));
+	public Monstre(Monde monde){
+		super(0, 0, 20, new AffichageSprite(Color.RED), monde);
 		this.valeurPoint=10;
 	}
 	
-	public Monstre(int x, int y) {
-		super(x, y, 1, new AffichageSprite(Color.RED));
+	public Monstre(int x, int y, Monde monde) {
+		super(x, y, 1, new AffichageSprite(Color.RED), monde);
 		this.valeurPoint=10; //le nombre de point que le hero gagne en tuant le monstre est de 10 de base
 	}
 	
-	public Monstre(int x, int y, int vitesse){
-		super(x, y, vitesse, new AffichageSprite(Color.RED));
+	public Monstre(int x, int y, int vitesse, Monde monde){
+		super(x, y, vitesse, new AffichageSprite(Color.RED), monde);
 		this.valeurPoint=10;
+	}
+
+	// ----- Fonction ------ //
+
+	public void collisionObjectif(int x, int y) {
+		monde.collisionMonstreNexus(this, x, y);
 	}
 	
 	// ----- Getters & Setters ----- 
