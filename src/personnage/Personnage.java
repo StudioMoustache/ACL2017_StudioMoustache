@@ -61,13 +61,6 @@ public abstract class Personnage {
 		return sprite.getHeight();
 	}
 
-	// ----- Fonctions -----
-	
-	public void deplacer(int x, int y){
-		this.x += x;
-		this.y += y;
-	}
-
 	// ----- FONCTION ABSTRAITE ----- // 
 
 	// Fonction de verification de collision avec l'objectif
@@ -133,29 +126,31 @@ public abstract class Personnage {
 	// categoriePersonnage permet de savoir si la fonction est appelée par un héro ou pas un monstre
 	public void calculTrajectoire(BufferedImage bi, int deplacementx, int deplacementy) {
 		boolean collision = false;
-		int xArrivee = x + (deplacementx*vitesse);
-		int yArrivee = y + (deplacementy*vitesse);
+		int xArrivee = this.x + (deplacementx*this.vitesse);
+		int yArrivee = this.y + (deplacementy*this.vitesse);
 
 		while (!collision) {
-			collision = testCollisionMur(bi);
+			// Appel de la fonction de vérification de collision avec les murs
+			collision = this.testCollisionMur(bi);
+
+			// Appel de la fonction de vérification de collision avec : 
+			// - soit les monstres (pour le héro)
+			// - soit le nexus (pour les monstres)
+			this.collisionObjectif(x, y);
 
 			if (!collision) { // Il n'y a pas collision, on ajoute à la position courante
 							  // le deplacement en x et en y
-				x += deplacementx;
-				y += deplacementy;
+				this.x += deplacementx;
+				this.y += deplacementy;
 			} else { // Il y a collision à la position courante du personnage
 					 // donc on le recule d'un pixel
-				x -= deplacementx;
-				y -= deplacementy;
+				this.x -= deplacementx;
+				this.y -= deplacementy;
 			}
-
-			// Appelle de la fonction de vérification de collision avec l'objectif du personnage
-			// qui appelle cette fonction
-			collisionObjectif(x, y);
 
 			// On est arrivé à la position max de la trajectoire donc 
 			// on ne teste plus la collision
-			if (x == xArrivee && y == yArrivee) {
+			if (this.x == xArrivee && this.y == yArrivee) {
 				collision = true;
 			}
 		}
@@ -163,6 +158,6 @@ public abstract class Personnage {
 
 	// fonction d'affichage
 	public void dessiner(Graphics2D g) {
-		sprite.dessiner(g, x, y);
+		sprite.dessiner(g, this.x, this.y);
 	}
 }

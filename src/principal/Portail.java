@@ -18,12 +18,14 @@ import graphiques.AffichageSprite;
  */
 
 public class Portail {
+	final private static int dimensionSprite = 8;
+
 	private int x;
 	private int y;
 	private int nbMonstres;
 	private int frequence;
 	
-	private AffichageSprite sprite = new AffichageSprite(Color.GRAY);
+	private AffichageSprite sprite = new AffichageSprite(Color.GRAY, dimensionSprite);
 
 	/**
 	 * Constructeurs sans frequence

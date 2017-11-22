@@ -10,36 +10,33 @@ import java.util.TreeSet;
 import principal.Monde;
 
 public class MultipleKeyListener implements KeyListener {
-	private Monde m;
-	
+	private Monde monde;
 	
 	private final TreeSet<Integer>pressed =new TreeSet<Integer>();
 	
 	public MultipleKeyListener(Monde m){
-		this.m=m;
+		this.monde=m;
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getExtendedKeyCode() == 80) // code de p pour la pause
-			m.setPause();
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
         pressed.add(e.getExtendedKeyCode());
-        //System.out.println(e.getKeyCode());
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 		pressed.remove(e.getExtendedKeyCode());
-		
+
+		if (e.getExtendedKeyCode() == 80)
+			monde.changePause();
 	}
 	
 	public String toString(){
-		String s="coucou";
+		String s="";
 		Iterator<Integer> it=pressed.iterator();
 		while(it.hasNext()){
 			s+=""+it.next();	
@@ -50,25 +47,27 @@ public class MultipleKeyListener implements KeyListener {
 	}
 	
 	public void deplacement(){
+		int deplacementX = 0, deplacementY = 0;
+
 		if(pressed.contains(37)){
-			m.deplacerHero(-1, 0);
+			deplacementX -= 1;
 		}
 		if(pressed.contains(38)){
-			m.deplacerHero(0, -1);
+			deplacementY -= 1;
 		}
 		if(pressed.contains(39)){
-			m.deplacerHero(1, 0);
+			deplacementX += 1;
 		}
 		if(pressed.contains(40)){
-			m.deplacerHero(0, 1);
+			deplacementY += 1;
 		}
+/*
 		if(pressed.contains(80)) { // lettre p pour la pause
-			m.setPause();
+			monde.changePause();
 		}
-	}
-
-	public void setMonde(Monde m) {
-		this.m = m;
+*/
+		if (deplacementX != 0 || deplacementY != 0) 
+			monde.deplacerHero1(deplacementX, deplacementY);
 	}
 	
 }

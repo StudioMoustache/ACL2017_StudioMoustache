@@ -26,11 +26,13 @@ public class Hero extends Personnage {
 
 	// ----- Fonction ------ //
 
+	// Initialisation des champs statiques, nécessaire puisque le monde est dans le constructeur
 	public static void initialisationHeros(Monde monde) {
 		hero1 = new Hero(250, 250, 5, monde);
 		hero2 = new Hero(250, 250, 5, monde);
 	}
 
+	// Fonction expliquée dans la classe abstraite Personnage
 	public void collisionObjectif(int x, int y) {
 		monde.collisionHeroMonstres(this, x, y);
 	}
@@ -51,7 +53,6 @@ public class Hero extends Personnage {
 	 */
 	public void gainPoint(int points){
 		this.score+=points;
-		System.out.println(score);
 	}
 	
 	public int getScore(){
