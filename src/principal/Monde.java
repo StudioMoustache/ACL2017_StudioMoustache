@@ -97,9 +97,15 @@ public class Monde {
 	
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
-	public void deplacerHero(int x, int y){
+	public void deplacerHero1(int x, int y){
 		if (!isPaused()) {
 			Hero.getHero1().calculTrajectoire(carte, x, y);
+		}
+	}
+
+	public void deplacerHero2(int x, int y){
+		if (!isPaused()) {
+			Hero.getHero2().calculTrajectoire(carte, x, y);
 		}
 	}
 	
@@ -221,6 +227,7 @@ public class Monde {
 				checkInvocationMonstres();
 				//System.out.println(this.toString());
 
+
 				if (!this.nexus.estVivant()) {
 					this.perdu = true;
 				}
@@ -232,18 +239,25 @@ public class Monde {
 		}
 	}
 	
+	// TODO ajouterMonstre en designant un portail
+
+	// ---- Getters & Setters ---- //
 	
-	public String toString(){
-		String toReturn = "";	
-		toReturn += nexus.toString()+"\n";
-		toReturn += Hero.getHero1().toString()+"\n";
-		for(Monstre m : lesMonstres)
-			toReturn += m.toString()+"\n";
-		return toReturn;
+	public boolean isPaused() {
+		return paused;
 	}
 	
-	// TODO ajouterMonstre en designant un portail
-	
+	public void changePause() {
+		paused = !paused;
+	}
+
+	public int getScoreHero1() {
+		return Hero.getHero1().getScore();
+	}
+
+	public int getScoreHero2() {
+		return Hero.getHero2().getScore();
+	}
 
 	// fonction d'affichage du monde
 	public void dessiner(Graphics2D g) {
@@ -261,13 +275,14 @@ public class Monde {
 
 		Hero.getHero1().dessiner(g);
 	}
-	
-	public boolean isPaused() {
-		return paused;
-	}
-	
-	public void setPause() {
-		paused = !paused;
+
+	public String toString(){
+		String toReturn = "";	
+		toReturn += nexus.toString()+"\n";
+		toReturn += Hero.getHero1().toString()+"\n";
+		for(Monstre m : lesMonstres)
+			toReturn += m.toString()+"\n";
+		return toReturn;
 	}
 
 	public int getVague() {

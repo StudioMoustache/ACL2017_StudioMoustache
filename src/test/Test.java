@@ -5,8 +5,6 @@ import java.awt.event.*;
 import javax.swing.JFrame;
 
 import graphiques.MainFrame;
-import personnage.Hero;
-import principal.Monde;
 
 public class Test {
 	public static void main(String[] args){
@@ -15,8 +13,7 @@ public class Test {
 	}
 	
 	private static void testDeplacementHero() {
-		final Monde monde = new Monde();
-		final MainFrame frame = new MainFrame(monde);
+		final MainFrame frame = new MainFrame();
 		
 		frame.pack();
 		frame.setVisible(true);

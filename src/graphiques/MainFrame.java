@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import principal.Monde;
 
+
 public class MainFrame extends JFrame {
 	private static int WINDOW_WIDTH = 500;
 	private static int WINDOW_HEIGHT = 500;
@@ -18,7 +19,7 @@ public class MainFrame extends JFrame {
 	private PanneauMenu panneauMenu;
 	private PanneauJeu panneauJeu;
 
-	public MainFrame(Monde monde) {
+	public MainFrame() {
 		super("Berzerker");
 		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
@@ -27,7 +28,7 @@ public class MainFrame extends JFrame {
 		// Chaque panel est un des menus du jeu (Menu d'avant-jeu, jeu et menu de fin de jeu)
 		panneauMenu = new PanneauMenu(this);
 		panneauMenu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-		panneauJeu = new PanneauJeu(monde, this);
+		panneauJeu = new PanneauJeu(this);
 		panneauJeu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 

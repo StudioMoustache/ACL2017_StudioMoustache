@@ -6,31 +6,30 @@ import graphiques.AffichageSprite;
 import principal.Monde;
 
 public class Monstre extends Personnage {
-	private int x;
-	private int y;
+	final private static int dimensionSprite = 8;
+
 	private int valeurPoint; //le nombre de point que le hero gagne en tuant le monstre
-	private static int vitesse;
-	private AffichageSprite sprite = new AffichageSprite(Color.RED);
 	
 	// ----- Constructeurs -----
 	
 	public Monstre(Monde monde){
-		super(0, 0, 20, new AffichageSprite(Color.RED), monde);
+		super(0, 0, 20, new AffichageSprite(Color.RED, dimensionSprite), monde);
 		this.valeurPoint=10;
 	}
 	
 	public Monstre(int x, int y, Monde monde) {
-		super(x, y, 1, new AffichageSprite(Color.RED), monde);
+		super(x, y, 1, new AffichageSprite(Color.RED, dimensionSprite), monde);
 		this.valeurPoint=10; //le nombre de point que le hero gagne en tuant le monstre est de 10 de base
 	}
 	
 	public Monstre(int x, int y, int vitesse, Monde monde){
-		super(x, y, vitesse, new AffichageSprite(Color.RED), monde);
+		super(x, y, vitesse, new AffichageSprite(Color.RED, dimensionSprite), monde);
 		this.valeurPoint=10;
 	}
 
 	// ----- Fonction ------ //
 
+	// Fonction expliquée dans la classe abstraite Personnage
 	public void collisionObjectif(int x, int y) {
 		monde.collisionMonstreNexus(this, x, y);
 	}
