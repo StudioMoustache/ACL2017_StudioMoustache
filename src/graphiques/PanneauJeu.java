@@ -22,7 +22,6 @@ public class PanneauJeu extends JPanel {
 	private Tick tick;
 	private MultipleKeyListener mkl;
 	private JLabel scoreJ1, scoreJ2;
-
 	private JLabel panneauVagues;
 
 
@@ -38,9 +37,9 @@ public class PanneauJeu extends JPanel {
 
 		mkl=new MultipleKeyListener(monde);		
 		fenetre.addKeyListener(mkl);
-
 		panneauVagues = new JLabel("Vague : "+m.getVague());
 		add(panneauVagues);
+
 
 		tick = new Tick(monde, this);
 		

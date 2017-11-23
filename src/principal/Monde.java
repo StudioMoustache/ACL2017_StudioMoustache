@@ -225,7 +225,6 @@ public class Monde {
 				nbUpdates += 1;
 				deplacementMonstres();
 				checkInvocationMonstres();
-				//System.out.println(this.toString());
 
 
 				if (!this.nexus.estVivant()) {
@@ -287,5 +286,6 @@ public class Monde {
 
 	public int getVague() {
 		return vague;
+
 	}
 }
