@@ -26,7 +26,7 @@ public class PanneauJeu extends JPanel {
 	private JLabel panneauVagues;
 
 
-	public PanneauJeu(Monde m, MainFrame f) {
+	public PanneauJeu(MainFrame f) {
 
 		super();
 
