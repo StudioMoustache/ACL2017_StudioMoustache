@@ -37,7 +37,7 @@ public class PanneauJeu extends JPanel {
 
 		mkl=new MultipleKeyListener(monde);		
 		fenetre.addKeyListener(mkl);
-		panneauVagues = new JLabel("Vague : "+m.getVague());
+		panneauVagues = new JLabel("Vague : "+monde.getVague());
 		add(panneauVagues);
 
 
