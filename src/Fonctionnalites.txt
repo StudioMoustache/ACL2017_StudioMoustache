@@ -21,7 +21,7 @@ Liste des fonctionnalités
 	- Plus de points de vies
 	- Traverser les murs
 	- Pouvoir poser une tourelle à un endroit
-- Systeme de niveaux avec compétences  
+- Systeme de niveaux avec compétences  (abandonné)
 - Gestion d'un inventaire 
 9 - Customiser notre personnage
 9 - Menu
@@ -53,3 +53,11 @@ Troisième semaine :
  - Sceance 2h : Automatisation des vagues de monstres (un vrai niveau)
  - En semaine : Menu + calcul des points + informations tierces
  
+ 
+ Sprint de 3 semaines pour la version 2:
+ - pathfinding -> Flo, GuiB
+ - multijoueur (2 sur un clavier) -> GuiB
+ - menu (1J - 2J) + interface menu + menu pause -> GuiR
+ - gestion changement carte tous les qqes vagues -> Flo
+ - génération pseudo aléatoire de niveaux -> GuiR, Paul
+ - monstres à plusieurs vies -> Paul
