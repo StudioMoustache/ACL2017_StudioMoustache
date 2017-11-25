@@ -22,7 +22,7 @@ public class PanneauJeu extends JPanel {
 	private Tick tick;
 	private MultipleKeyListener mkl;
 	private JLabel scoreJ1, scoreJ2;
-	private JLabel panneauVagues;
+	private JLabel numeroVague;
 
 
 	public PanneauJeu(MainFrame f) {
@@ -37,8 +37,6 @@ public class PanneauJeu extends JPanel {
 
 		mkl=new MultipleKeyListener(monde);		
 		fenetre.addKeyListener(mkl);
-		panneauVagues = new JLabel("Vague : "+monde.getVague());
-		add(panneauVagues);
 
 
 		tick = new Tick(monde, this);
@@ -50,21 +48,23 @@ public class PanneauJeu extends JPanel {
 		scoreJ2.setPreferredSize(dimensionScore);
 		this.add(scoreJ1);
 		this.add(scoreJ2);
+
+		numeroVague = new JLabel("Vague : "+monde.getVague());
+		this.add(numeroVague);
 	}
 
 	public void update() {
 		mkl.deplacement();
 		scoreJ1.setText(""+monde.getScoreHero1());
 		scoreJ2.setText(""+monde.getScoreHero2());
+		numeroVague.setText("Vague : "+monde.getVague());
 	}
 
 	
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
 		Graphics2D g2D = (Graphics2D)g;
-		panneauVagues.setText("Vague : "+monde.getVague());
 		monde.dessiner(g2D);
 	}
 	

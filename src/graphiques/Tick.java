@@ -19,7 +19,7 @@ public class Tick implements ActionListener {
 	private Timer timer;
 	private final int REFRESH = 50;
 
-	// permet l'appel du dessin du monde
+	// permet l'appel de la mise à jour du panneau et du dessin du monde
 	private PanneauJeu panneauJeu;
 	
 	/**
@@ -27,7 +27,7 @@ public class Tick implements ActionListener {
 	 */
 	public Tick(Monde monde, PanneauJeu pj) {
 		this.monde = monde;
-		panneauJeu = pj;
+		this.panneauJeu = pj;
 		this.timer = new Timer(REFRESH, (ActionListener) this);
 	}
 
