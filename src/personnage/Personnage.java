@@ -146,7 +146,7 @@ public abstract class Personnage {
 			// Appel de la fonction de vérification de collision avec : 
 			// - soit les monstres (pour le héro)
 			// - soit le nexus (pour les monstres)
-			this.collisionObjectif(x, y);
+			this.collisionObjectif();
 
 			if (!collision) { // Il n'y a pas collision, on ajoute à la position courante
 							  // le deplacement en x et en y
