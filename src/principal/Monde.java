@@ -14,8 +14,13 @@ import personnage.Monstre;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
-
 public class Monde {
+	final private static Monde instance = new Monde();
+
+	public static Monde getInstance() {
+		return instance;
+	}
+
 	private ArrayList<Monstre> lesMonstres;
 	private ArrayList<Portail> lesPortails;
 	private Nexus nexus;
@@ -23,17 +28,21 @@ public class Monde {
 	private final int HAUTEUR = 500;
 	private final int LARGEUR = 500;
 	
-	boolean perdu = false;
-	boolean paused = false;
-	boolean debutVague = false;
+	private boolean perdu = false;
+	private boolean paused = false;
+	private boolean debutVague = false;
+	private boolean deuxJoueurs = false;
 
 	private int nbUpdates;
 
 	private BufferedImage carte;
+
+	final private static Hero hero1 = new Hero(250, 250, 5, instance);
+	final private static Hero hero2 = new Hero(270, 250, 5, instance);
 	
 	// ----- Constructeurs -----
 	
-	public Monde(){
+	private Monde(){
 		this.lesMonstres = new ArrayList<Monstre>();
 		this.lesPortails = new ArrayList<Portail>();
 		nbUpdates = 0;
@@ -42,21 +51,13 @@ public class Monde {
 		Portail p1 = new Portail(50, 450, 5, 20);
 		lesPortails.add(p1);
 
-		Hero.initialisationHeros(this);
-
 		// récupération du fichier contenant la carte du monde
 		try {
 			carte = ImageIO.read(new File("src/images/carteTest.png"));
 		} catch (IOException e) {
 			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		}
-		
-		// On fait bien toutes les initialisations AVANT la creation du Tick qui va declencher les update
-		
-		// Tick monTick = new Tick(this);
 	}
-	
-	
 	
 	// ----------------------- FONCTIONS DE INVOCATION MONSTRES ----------------------------
 	
@@ -99,13 +100,13 @@ public class Monde {
 	
 	public void deplacerHero1(int x, int y){
 		if (!isPaused()) {
-			Hero.getHero1().calculTrajectoire(carte, x, y);
+			hero1.deplacementTrajectoire(carte, x, y);
 		}
 	}
 
 	public void deplacerHero2(int x, int y){
 		if (!isPaused()) {
-			Hero.getHero2().calculTrajectoire(carte, x, y);
+			hero2.deplacementTrajectoire(carte, x, y);
 		}
 	}
 	
@@ -176,7 +177,7 @@ public class Monde {
 			else // xMonstre == XNexus
 				deplacementY = 0;
 			
-			m.calculTrajectoire(carte, deplacementX, deplacementY);
+			m.deplacementTrajectoire(carte, deplacementX, deplacementY);
 		}
 	}
 	
@@ -211,13 +212,13 @@ public class Monde {
 		if ((xMonstre >= hero.getX() && xMonstre <= hero.getX() + hero.getWidth()) && 
 			(yMonstre >= hero.getY() && yMonstre  <= hero.getY() + hero.getHeight())) {
 			lesMonstres.remove(m);
-			hero.gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur 1
+			hero.gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur
 		}
 	}
 	
 	
 	// ----------------------------------- UPDATE ET TOSTRING --------------------
-	
+
 	// A chaque Tick (rafraichissement), on deplace les monstres et on teste les collisions
 	public void update(){
 		if(!paused) {
@@ -225,7 +226,6 @@ public class Monde {
 				nbUpdates += 1;
 				deplacementMonstres();
 				checkInvocationMonstres();
-
 
 				if (!this.nexus.estVivant()) {
 					this.perdu = true;
@@ -242,6 +242,10 @@ public class Monde {
 
 	// ---- Getters & Setters ---- //
 	
+	public void setDeuxJoueurs() {
+		deuxJoueurs = true;
+	}
+	
 	public boolean isPaused() {
 		return paused;
 	}
@@ -251,12 +255,18 @@ public class Monde {
 	}
 
 	public int getScoreHero1() {
-		return Hero.getHero1().getScore();
+		return hero1.getScore();
 	}
 
 	public int getScoreHero2() {
-		return Hero.getHero2().getScore();
+		return hero2.getScore();
 	}
+
+	public int getVague() {
+		return vague;
+	}
+
+	// ---- Fonctions tierces ---- //
 
 	// fonction d'affichage du monde
 	public void dessiner(Graphics2D g) {
@@ -272,20 +282,17 @@ public class Monde {
 			m.dessiner(g);
 		}
 
-		Hero.getHero1().dessiner(g);
+		hero1.dessiner(g);
+		if (deuxJoueurs)
+			hero2.dessiner(g);
 	}
 
 	public String toString(){
 		String toReturn = "";	
 		toReturn += nexus.toString()+"\n";
-		toReturn += Hero.getHero1().toString()+"\n";
+		toReturn += hero1.toString()+"\n";
 		for(Monstre m : lesMonstres)
 			toReturn += m.toString()+"\n";
 		return toReturn;
-	}
-
-	public int getVague() {
-		return vague;
-
 	}
 }

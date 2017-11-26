@@ -28,13 +28,16 @@ public class MainFrame extends JFrame {
 		panneauJeu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
 
-		// initialement le premier panel est celui du menu d'avant-jeu
+		// Initialement le premier panel est celui du menu d'avant-jeu
 		setPanneauMenu();
 
-		// enlève le bord de fenetre de l'OS
+		// Enlève le bord de fenetre de l'OS
 		setUndecorated(true);
 
-		// place la fenêtre en 50, 50
+		// Met le focus sur la fenetre
+		setFocusable(true);
+
+		// Place la fenêtre en 50, 50
 		setLocation(50, 50);
 
 		pack();
@@ -45,8 +48,9 @@ public class MainFrame extends JFrame {
 		setContentPane(panneauMenu);
 	}
 
-	public void setPanneauJeu() {
-		setContentPane(panneauJeu);
+	public void setPanneauJeu(int nbJoueurs) {
+		panneauJeu.setNbJoueurs(nbJoueurs);
 		panneauJeu.startUpdate();
+		setContentPane(panneauJeu);
 	}
 }

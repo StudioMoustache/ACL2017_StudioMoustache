@@ -17,27 +17,21 @@ import javax.swing.JLabel;
 
 
 public class PanneauJeu extends JPanel {
+	final private static Monde monde = Monde.getInstance();
+
 	private MainFrame fenetre;
-	private Monde monde;
 	private Tick tick;
 	private MultipleKeyListener mkl;
 	private JLabel scoreJ1, scoreJ2;
 	private JLabel numeroVague;
 
-
 	public PanneauJeu(MainFrame f) {
-
 		super();
-
-		// Le panel de jeu connait le monde pour le dessiner
-		monde = new Monde();
 
 		// Chaque panel connait la fenetre pour changer de panel dans l'application
 		fenetre = f;
 
-		mkl=new MultipleKeyListener(monde);		
-		fenetre.addKeyListener(mkl);
-
+		mkl = new MultipleKeyListener(monde);
 
 		tick = new Tick(monde, this);
 		
@@ -69,7 +63,15 @@ public class PanneauJeu extends JPanel {
 	}
 	
 	public void startUpdate(){
+		fenetre.addKeyListener(mkl);
 		tick.start();
+	}
+
+	public void setNbJoueurs(int nbJoueurs) {
+		if (nbJoueurs > 1) {
+			monde.setDeuxJoueurs();
+			mkl.setDeuxJoueurs();
+		}
 	}
 
 }

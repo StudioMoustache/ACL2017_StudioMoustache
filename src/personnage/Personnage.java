@@ -124,7 +124,7 @@ public abstract class Personnage {
 	// cette fonction parcourt les pixels de la trajectoire du personnage un par un pour l'arrêter 
 	// lorsqu'il est contre un mur
 	// categoriePersonnage permet de savoir si la fonction est appelée par un héro ou pas un monstre
-	public void calculTrajectoire(BufferedImage bi, int deplacementx, int deplacementy) {
+	public void deplacementTrajectoire(BufferedImage bi, int deplacementx, int deplacementy) {
 		boolean collision = false;
 		int xArrivee = this.x + (deplacementx*this.vitesse);
 		int yArrivee = this.y + (deplacementy*this.vitesse);

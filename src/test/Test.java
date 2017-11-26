@@ -17,7 +17,6 @@ public class Test {
 		
 		frame.pack();
 		frame.setVisible(true);
-
 	}
 
 }
