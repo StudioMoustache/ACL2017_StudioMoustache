@@ -15,28 +15,46 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 public class Monde {
+	private final int HAUTEUR = 500;
+	private final int LARGEUR = 500;
+
+	// Il n'y a qu'une seule instance du monde dans le jeu
 	final private static Monde instance = new Monde();
 
+	/**
+	 * Retourne la seule instance de la classe Monde
+	 * @return instance de la classe Monde
+	 */
 	public static Monde getInstance() {
 		return instance;
 	}
 
+	// Liste contenant les monstres du monde
 	private ArrayList<Monstre> lesMonstres;
+	// Liste contenant les portails du monde
 	private ArrayList<Portail> lesPortails;
+	// Instance du nexus (objectif) du monde
 	private Nexus nexus;
+	// Numéro courant de vague
 	private int vague;
-	private final int HAUTEUR = 500;
-	private final int LARGEUR = 500;
 	
+	// Indique si le joueur a perdu (point de vie du nexus à 0)
 	private boolean perdu = false;
+	// Indique si le jeu est en pause
 	private boolean paused = false;
 	private boolean debutVague = false;
+
+	// Indique si le jeu est en 1 joueur ou 2 joueurs
 	private boolean deuxJoueurs = false;
 
+	// Nombre d'updates courant
 	private int nbUpdates;
 
+	// carte du monde
 	private BufferedImage carte;
 
+	// Il n'existe que deux héros dans le jeu, ils sont donc crées ici
+	// en final et static
 	final private static Hero hero1 = new Hero(250, 250, 5, instance);
 	final private static Hero hero2 = new Hero(270, 250, 5, instance);
 	
@@ -92,18 +110,31 @@ public class Monde {
 		}
 	}
 
+	/**
+	 * Incrémente le numéro de la vague courante
+	 */
 	public void incrementeVague(){
 		this.vague += 1;
 	}
 	
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
+	/**
+	 * Deplace le héro 1 en x et/ou en y
+	 * @param x direction sur l'axe des abscisses
+	 * @param y direction sur l'axe des ordonnées
+	 */
 	public void deplacerHero1(int x, int y){
 		if (!isPaused()) {
 			hero1.deplacementTrajectoire(carte, x, y);
 		}
 	}
 
+	/**
+	 * Deplace le héro 2 en x et/ou en y
+	 * @param x direction sur l'axe des abscisses
+	 * @param y direction sur l'axe des ordonnées
+	 */
 	public void deplacerHero2(int x, int y){
 		if (!isPaused()) {
 			hero2.deplacementTrajectoire(carte, x, y);
@@ -184,8 +215,14 @@ public class Monde {
 	
 	// -------------------- GESTION DES COLLISIONS --------------------
 
-	// Fonction appelée par une instance de Montre lors de son déplacement
-	public void collisionMonstreNexus(Monstre m, int x, int y) {
+	/**
+	 * Pour un monstre donné, une position en x et en y donnée, test s'il y a collision
+	 * entre ce monstre et le nexus
+	 * @param m monstre
+	 * @param x position en x du monstre
+	 * @param y position en y du monstre
+	 */
+	public void collisionMonstreNexus(Monstre m) {
 		int xMonstre = m.getX() + m.getWidth()/2;
 		int yMonstre = m.getY() + m.getHeight()/2;
 
@@ -197,15 +234,22 @@ public class Monde {
 		}
 	}
 
-	// Fonction de vérification de collision entre le héro et un ou plusieurs monstre(s)
-	// x, y : position courante du héro
-	public void collisionHeroMonstres(Hero hero, int x, int y) {
+	/**
+	 * Verification de collision entre un héro et la liste des monstres
+	 * @param hero héro ayant appelé cette fonction
+	 */
+	public void collisionHeroMonstres(Hero hero) {
 		for (int i = 0; i < lesMonstres.size() ; i++) {
-			collisionHeroMonstre(hero, lesMonstres.get(i), x, y);
+			collisionHeroMonstre(hero, lesMonstres.get(i));
 		}
 	}
 	
-	public void collisionHeroMonstre(Hero hero, Monstre m, int x, int y) {
+	/**
+	 * Verification de collision entre un héro et un monstre
+	 * @param hero héro ayant appelé cette fonction
+	 * @param m    monstre faisant parti de la liste des monstres
+	 */
+	public void collisionHeroMonstre(Hero hero, Monstre m) {
 		int xMonstre = m.getX() + m.getWidth()/2;
 		int yMonstre = m.getY() + m.getHeight()/2;
 
@@ -219,7 +263,9 @@ public class Monde {
 	
 	// ----------------------------------- UPDATE ET TOSTRING --------------------
 
-	// A chaque Tick (rafraichissement), on deplace les monstres et on teste les collisions
+	/**
+	 * Fonction de mise à jour du monde à chaque rafraichissement de la classe Tick
+	 */
 	public void update(){
 		if(!paused) {
 			if(!perdu) {

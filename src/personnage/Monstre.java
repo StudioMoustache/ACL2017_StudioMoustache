@@ -30,8 +30,8 @@ public class Monstre extends Personnage {
 	// ----- Fonction ------ //
 
 	// Fonction expliquée dans la classe abstraite Personnage
-	public void collisionObjectif(int x, int y) {
-		monde.collisionMonstreNexus(this, x, y);
+	public void collisionObjectif() {
+		monde.collisionMonstreNexus(this);
 	}
 	
 	// ----- Getters & Setters ----- 

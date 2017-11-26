@@ -36,6 +36,10 @@ public class Nexus {
 		vie -= degats;
 	}
 
+	/**
+	 * Permet de savoir si le nexus a encore des points de vie
+	 * @return true si il a encore des points de vie, false sinon
+	 */
 	public boolean estVivant() {
 		return vie != 0;
 	}

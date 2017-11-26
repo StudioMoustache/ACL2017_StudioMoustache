@@ -12,7 +12,8 @@ public abstract class Personnage {
 	protected int vitesse;
 
 	// Un personnage connait le monde dans lequel il se trouve
-	protected Monde monde;
+	// Et celui-ci ne peut changer d'instance
+	final protected Monde monde;
 
 	// Classe permettant de dessiner le personnage
 	protected AffichageSprite sprite;
@@ -63,17 +64,22 @@ public abstract class Personnage {
 
 	// ----- FONCTION ABSTRAITE ----- // 
 
-	// Fonction de verification de collision avec l'objectif
-	// Objectif : 
-	// 	Hero -> les monstres
-	// 	Monstre -> le(s) nexus
-	// x, y : position courante du personnage
-	public abstract void collisionObjectif(int x, int y);
+	/**
+	 * appelle la fonction de collision avec l'objectif du personnage
+	 * pour vérifier la collision avec son objectif
+	 * pour un hero : collision avec les monstres
+	 * pour un monstre : collision avec le(s) nexus
+	 */
+	public abstract void collisionObjectif();
 
 	// ----- FONCTION DE COLLISION AVEC MUR ----- //
 
-	// Fonction qui test pour un x et un y donné s'il y a collision
-	// Fonction utilisée par la fonction calculTrajectoire
+	/**
+	 * Fonction qui test pour la position courante du personnage
+	 * s'il est en collision avec un mur
+	 * @param  bi image contenant la carte du niveau courant
+	 * @return    true s'il y a collision, false sinon
+	 */
 	private boolean testCollisionMur(BufferedImage bi) {
 		boolean collision = false;
 		boolean tour = false;
@@ -121,9 +127,13 @@ public abstract class Personnage {
 		return collision;
 	}
 
-	// cette fonction parcourt les pixels de la trajectoire du personnage un par un pour l'arrêter 
-	// lorsqu'il est contre un mur
-	// categoriePersonnage permet de savoir si la fonction est appelée par un héro ou pas un monstre
+	/**
+	 * Fonction qui parcourt la trajectoire du personnage pour vérifier
+	 * s'il y a collision à chaque incrémentation de sa position
+	 * @param bi           image contenant la carte du niveau courant
+	 * @param deplacementx direction selon l'axe des abscisses
+	 * @param deplacementy direction selon l'axe des ordonnées
+	 */
 	public void deplacementTrajectoire(BufferedImage bi, int deplacementx, int deplacementy) {
 		boolean collision = false;
 		int xArrivee = this.x + (deplacementx*this.vitesse);

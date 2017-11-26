@@ -17,11 +17,13 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		super("Berzerker");
+		// Affichage de la fenetre à la taille voulue
 		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
+		// Permet la fermeture de la fenetre à l'aide de la croix
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Chaque panel est un des menus du jeu (Menu d'avant-jeu, jeu et menu de fin de jeu)
+		// Chaque panel est un des affichages du jeu (Menu d'avant-jeu, jeu et menu de fin de jeu)
 		panneauMenu = new PanneauMenu(this);
 		panneauMenu.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		panneauJeu = new PanneauJeu(this);

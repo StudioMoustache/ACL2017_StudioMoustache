@@ -43,6 +43,10 @@ public class MultipleKeyListener implements KeyListener {
 			monde.changePause();
 	}
 	
+	/**
+	 * Parcours de l'ensemble contenant les touches entrées au clavier
+	 * afin de déplacer le ou les heros
+	 */
 	public void deplacement(){
 		// Deplacements du joueur 1
 		int deplacementX = 0, deplacementY = 0;

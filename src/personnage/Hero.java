@@ -24,8 +24,8 @@ public class Hero extends Personnage {
 	// ----- Fonction ------ //
 
 	// Fonction expliquée dans la classe abstraite Personnage
-	public void collisionObjectif(int x, int y) {
-		monde.collisionHeroMonstres(this, x, y);
+	public void collisionObjectif() {
+		monde.collisionHeroMonstres(this);
 	}
 
 	/**

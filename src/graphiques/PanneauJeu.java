@@ -19,10 +19,17 @@ import javax.swing.JLabel;
 public class PanneauJeu extends JPanel {
 	final private static Monde monde = Monde.getInstance();
 
+	// Fenetre principale de l'application
 	private MainFrame fenetre;
+	// Instance permettant le raffraichissement
+	// automatique du monde et du panneau
 	private Tick tick;
+	// Permet la lecture de plusieurs entrées à la fois 
+	// sur le clavier
 	private MultipleKeyListener mkl;
+	// JLabel contenant les scores des deux joueurs
 	private JLabel scoreJ1, scoreJ2;
+	// JLabel contenant le numéro de la vague courante
 	private JLabel numeroVague;
 
 	public PanneauJeu(MainFrame f) {
@@ -48,7 +55,11 @@ public class PanneauJeu extends JPanel {
 	}
 
 	public void update() {
+		// Appelle les fonctions de déplacement des héros
+		// selon les entrées du clavier
 		mkl.deplacement();
+		// Modifie la valeur des JLabel en fonction des
+		// valeurs du monde
 		scoreJ1.setText(""+monde.getScoreHero1());
 		scoreJ2.setText(""+monde.getScoreHero2());
 		numeroVague.setText("Vague : "+monde.getVague());
@@ -63,13 +74,20 @@ public class PanneauJeu extends JPanel {
 	}
 	
 	public void startUpdate(){
+		// On assigne le keylistener de la fenetre de l'application
+		// au keylistener que l'on a dans cette classe
 		fenetre.addKeyListener(mkl);
+		// On démarre les update du monde
 		tick.start();
 	}
 
 	public void setNbJoueurs(int nbJoueurs) {
 		if (nbJoueurs > 1) {
+			// Indique au monde que le jeu est en mode
+			// deux joueurs
 			monde.setDeuxJoueurs();
+			// Indique au keylistener que le jeu est en mode
+			// deux joueurs
 			mkl.setDeuxJoueurs();
 		}
 	}

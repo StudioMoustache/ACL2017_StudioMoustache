@@ -15,8 +15,11 @@ public class AffichageSprite extends BufferedImage {
 
 	public AffichageSprite(Color c) {
 		super(10, 10, BufferedImage.TYPE_INT_ARGB);
+		// création de l'instance de Graphics2D
 		sprite = createGraphics();
+		// Ajout de la couleur de dessin
 		sprite.setPaint(c);
+		// Dessin d'un rectangle dans l'instance de Graphics2D
 		sprite.fillRect(0, 0, width, height);
 	}
 
