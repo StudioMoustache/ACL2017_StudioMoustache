@@ -30,16 +30,16 @@ public class PanneauMenu extends JPanel {
 		titre.setHorizontalAlignment(SwingConstants.CENTER);
 		titre.setVerticalAlignment(SwingConstants.CENTER);
 
-		// Ajout du titre du jeu en première ligne
+		// Ajout du titre du jeu en premiere ligne
 		add(titre);
-		// Panneau de choix du nombre de joueur, nécessaire pour avoir
-		// les deux choix cote à cote
+		// Panneau de choix du nombre de joueur, necessaire pour avoir
+		// les deux choix cote a cote
 		JPanel choixNbJoueurs = new JPanel();
 
 		// Layout sous forme de grille de 1 ligne et de 2 colonnes
 		choixNbJoueurs.setLayout(new GridLayout(1, 2));
 
-		// Création du JButton de choix 1 joueur
+		// Creation du JButton de choix 1 joueur
 		JButton unJoueur = new JButton("1 joueur");
 		unJoueur.setHorizontalAlignment(SwingConstants.CENTER);
 		unJoueur.setVerticalAlignment(SwingConstants.CENTER);
@@ -49,11 +49,11 @@ public class PanneauMenu extends JPanel {
 			}
 		});
 
-		// Ajout du JButton en première colonne du panneau
+		// Ajout du JButton en premiere colonne du panneau
 		// de choix du nombre de joueurs
 		choixNbJoueurs.add(unJoueur);
 
-		// Création du JButton de choix 1 joueur
+		// Creation du JButton de choix 1 joueur
 		JButton deuxJoueurs = new JButton("2 joueurs");
 		deuxJoueurs.setHorizontalAlignment(SwingConstants.CENTER);
 		deuxJoueurs.setVerticalAlignment(SwingConstants.CENTER);
@@ -63,7 +63,7 @@ public class PanneauMenu extends JPanel {
 			}
 		});
 
-		// Ajout du JLabel en deuxième colonne du panneau
+		// Ajout du JLabel en deuxieme colonne du panneau
 		// de choix du nombre de joueurs
 		choixNbJoueurs.add(deuxJoueurs);
 
