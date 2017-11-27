@@ -1,0 +1,27 @@
+DEPLACER
+
+@startuml
+title Deplacer
+loop !non_perdu
+Joueur -> Systeme : KeyPressed
+alt !CollisionMurHero
+Systeme -> Systeme : deplacerHero
+end
+end
+@enduml
+
+----------------------------------------
+
+PAUSE
+
+@startuml
+title Pause
+loop !non_perdu
+Joueur -> Systeme : KeyPressed
+alt isPaused
+Systeme -> Systeme : retirerPause
+else
+Systeme -> Systeme : mettreEnPause
+end
+end
+@enduml

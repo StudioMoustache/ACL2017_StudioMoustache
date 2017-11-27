@@ -23,14 +23,14 @@ public class Hero extends Personnage {
 
 	// ----- Fonction ------ //
 
-	// Fonction expliquée dans la classe abstraite Personnage
+	// Fonction expliquee dans la classe abstraite Personnage
 	public void collisionObjectif() {
 		monde.collisionHeroMonstres(this);
 	}
 
 	/**
-	 * méthode pour mettre à jour les points du héro
-	 * @param point le nombre de point à ajouter au score
+	 * methode pour mettre a jour les points du hero
+	 * @param point le nombre de point a ajouter au score
 	 */
 	public void gainPoint(int points){
 		this.score+=points;

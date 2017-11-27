@@ -55,8 +55,8 @@ public class PanneauJeu extends JPanel {
 	}
 
 	public void update() {
-		// Appelle les fonctions de déplacement des héros
-		// selon les entrées du clavier
+		// Appelle les fonctions de deplacement des heros
+		// selon les entrees du clavier
 		mkl.deplacement();
 		// Modifie la valeur des JLabel en fonction des
 		// valeurs du monde
@@ -77,7 +77,7 @@ public class PanneauJeu extends JPanel {
 		// On assigne le keylistener de la fenetre de l'application
 		// au keylistener que l'on a dans cette classe
 		fenetre.addKeyListener(mkl);
-		// On démarre les update du monde
+		// On demarre les update du monde
 		tick.start();
 	}
 
