@@ -7,7 +7,7 @@ import java.awt.Color;
 
 
 public class AffichageSprite extends BufferedImage {
-	
+
 	private Graphics2D sprite;
 
 	private int width = 10;

@@ -85,11 +85,9 @@ public class Monde {
 	 * Des qu'un monstre figure dans cette liste, il est sur le terrain.
 	 */
 	public void invoquerMonstre(Portail p){
-		if(p.getNbMonstres() > 0) {
-			p.decMonstres();
-			Monstre m = new Monstre(p.getX(), p.getY(), this);
-			lesMonstres.add(m);
-		}
+		p.decMonstres();
+		Monstre m = new Monstre(p.getX(), p.getY(), this);
+		lesMonstres.add(m);
 	}
 	
 	/**
