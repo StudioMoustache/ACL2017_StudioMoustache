@@ -4,8 +4,13 @@ import principal.Monde;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JPanel;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import personnage.Hero;
@@ -24,14 +29,17 @@ public class PanneauJeu extends JPanel {
 	// Instance permettant le raffraichissement
 	// automatique du monde et du panneau
 	private Tick tick;
-	// Permet la lecture de plusieurs entrées à la fois 
+	// Permet la lecture de plusieurs entrees a la fois 
 	// sur le clavier
 	private MultipleKeyListener mkl;
 	// JLabel contenant les scores des deux joueurs
 	private JLabel scoreJ1, scoreJ2;
-	// JLabel contenant le numéro de la vague courante
+	// JLabel contenant le numero de la vague courante
 	private JLabel numeroVague;
 
+	private BufferedImage pauseImg;
+	private JLabel zonePause;
+	
 	public PanneauJeu(MainFrame f) {
 		super();
 
@@ -52,17 +60,32 @@ public class PanneauJeu extends JPanel {
 
 		numeroVague = new JLabel("Vague : "+monde.getVague());
 		this.add(numeroVague);
+		
+		// initialisation de l'image => Peut etre un img factory a faire pour les images du menu et celle-ci?
+		try {
+			pauseImg = ImageIO.read(new File("src/images/pause.png"));
+			Dimension dimensionEcran = new Dimension(500, 520);
+			zonePause = new JLabel(new ImageIcon(pauseImg));
+			zonePause.setPreferredSize(dimensionEcran);
+			this.add(zonePause);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void update() {
-		// Appelle les fonctions de déplacement des héros
-		// selon les entrées du clavier
+		// Appelle les fonctions de deplacement des heros
+		// selon les entrees du clavier
 		mkl.deplacement();
 		// Modifie la valeur des JLabel en fonction des
 		// valeurs du monde
 		scoreJ1.setText(""+monde.getScoreHero1());
 		scoreJ2.setText(""+monde.getScoreHero2());
 		numeroVague.setText("Vague : "+monde.getVague());
+		zonePause.setVisible(monde.isPaused());
+		// Affiche le filtre pause ne fonction du l'etat du monde (pause ou pas)
+		
 	}
 
 	
@@ -77,7 +100,7 @@ public class PanneauJeu extends JPanel {
 		// On assigne le keylistener de la fenetre de l'application
 		// au keylistener que l'on a dans cette classe
 		fenetre.addKeyListener(mkl);
-		// On démarre les update du monde
+		// On demarre les update du monde
 		tick.start();
 	}
 

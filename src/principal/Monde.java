@@ -35,7 +35,7 @@ public class Monde {
 	private ArrayList<Portail> lesPortails;
 	// Instance du nexus (objectif) du monde
 	private Nexus nexus;
-	// Numéro courant de vague
+	// Numero courant de vague
 	private int vague;
 	
 	// Indique si le joueur a perdu (point de vie du nexus à 0)
@@ -53,7 +53,7 @@ public class Monde {
 	// carte du monde
 	private BufferedImage carte;
 
-	// Il n'existe que deux héros dans le jeu, ils sont donc crées ici
+	// Il n'existe que deux heros dans le jeu, ils sont donc crees ici
 	// en final et static
 	final private static Hero hero1 = new Hero(250, 250, 5, instance);
 	final private static Hero hero2 = new Hero(270, 250, 5, instance);
@@ -69,7 +69,7 @@ public class Monde {
 		Portail p1 = new Portail(50, 450, 5, 20);
 		lesPortails.add(p1);
 
-		// récupération du fichier contenant la carte du monde
+		// recuperation du fichier contenant la carte du monde
 		try {
 			carte = ImageIO.read(new File("src/images/carteTest.png"));
 		} catch (IOException e) {
@@ -109,7 +109,7 @@ public class Monde {
 	}
 
 	/**
-	 * Incrémente le numéro de la vague courante
+	 * Incremente le numero de la vague courante
 	 */
 	public void incrementeVague(){
 		this.vague += 1;
@@ -118,9 +118,9 @@ public class Monde {
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
 	
 	/**
-	 * Deplace le héro 1 en x et/ou en y
+	 * Deplace le hero 1 en x et/ou en y
 	 * @param x direction sur l'axe des abscisses
-	 * @param y direction sur l'axe des ordonnées
+	 * @param y direction sur l'axe des ordonnees
 	 */
 	public void deplacerHero1(int x, int y){
 		if (!isPaused()) {
@@ -129,9 +129,9 @@ public class Monde {
 	}
 
 	/**
-	 * Deplace le héro 2 en x et/ou en y
+	 * Deplace le hero 2 en x et/ou en y
 	 * @param x direction sur l'axe des abscisses
-	 * @param y direction sur l'axe des ordonnées
+	 * @param y direction sur l'axe des ordonnees
 	 */
 	public void deplacerHero2(int x, int y){
 		if (!isPaused()) {
@@ -214,7 +214,7 @@ public class Monde {
 	// -------------------- GESTION DES COLLISIONS --------------------
 
 	/**
-	 * Pour un monstre donné, une position en x et en y donnée, test s'il y a collision
+	 * Pour un monstre donne, une position en x et en y donnee, test s'il y a collision
 	 * entre ce monstre et le nexus
 	 * @param m monstre
 	 * @param x position en x du monstre
@@ -233,8 +233,8 @@ public class Monde {
 	}
 
 	/**
-	 * Verification de collision entre un héro et la liste des monstres
-	 * @param hero héro ayant appelé cette fonction
+	 * Verification de collision entre un hero et la liste des monstres
+	 * @param hero hero ayant appele cette fonction
 	 */
 	public void collisionHeroMonstres(Hero hero) {
 		for (int i = 0; i < lesMonstres.size() ; i++) {
@@ -243,8 +243,8 @@ public class Monde {
 	}
 	
 	/**
-	 * Verification de collision entre un héro et un monstre
-	 * @param hero héro ayant appelé cette fonction
+	 * Verification de collision entre un hero et un monstre
+	 * @param hero hero ayant appele cette fonction
 	 * @param m    monstre faisant parti de la liste des monstres
 	 */
 	public void collisionHeroMonstre(Hero hero, Monstre m) {
@@ -262,7 +262,7 @@ public class Monde {
 	// ----------------------------------- UPDATE ET TOSTRING --------------------
 
 	/**
-	 * Fonction de mise à jour du monde à chaque rafraichissement de la classe Tick
+	 * Fonction de mise a jour du monde a chaque rafraichissement de la classe Tick
 	 */
 	public void update(){
 		if(!paused) {
