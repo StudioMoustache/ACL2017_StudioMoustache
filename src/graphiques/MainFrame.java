@@ -1,11 +1,8 @@
 package graphiques;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import principal.Monde;
 
 
 public class MainFrame extends JFrame {
@@ -17,10 +14,10 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() {
 		super("Berzerker");
-		// Affichage de la fenetre à la taille voulue
+		// Affichage de la fenetre a la taille voulue
 		setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
 
-		// Permet la fermeture de la fenetre à l'aide de la croix
+		// Permet la fermeture de la fenetre a l'aide de la croix
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Chaque panel est un des affichages du jeu (Menu d'avant-jeu, jeu et menu de fin de jeu)
@@ -33,13 +30,13 @@ public class MainFrame extends JFrame {
 		// Initialement le premier panel est celui du menu d'avant-jeu
 		setPanneauMenu();
 
-		// Enlève le bord de fenetre de l'OS
+		// Enleve le bord de fenetre de l'OS
 		setUndecorated(true);
 
 		// Met le focus sur la fenetre
 		setFocusable(true);
 
-		// Place la fenêtre en 50, 50
+		// Place la fenetre en 50, 50
 		setLocation(50, 50);
 
 		pack();

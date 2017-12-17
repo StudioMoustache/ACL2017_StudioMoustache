@@ -26,7 +26,7 @@ public class MultipleKeyListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// Fonction non utilisée mais doit être implémentée pour 
+		// Fonction non utilisee mais doit etre implementee pour 
 		// l'interface KeyListener
 	}
 
@@ -38,8 +38,8 @@ public class MultipleKeyListener implements KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
 		pressed.remove(e.getExtendedKeyCode());
-
-		if (e.getExtendedKeyCode() == 80)
+		
+		if (e.getExtendedKeyCode() == 80) // 80 pour P 
 			monde.changePause();
 	}
 	

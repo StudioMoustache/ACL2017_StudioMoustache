@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import java.io.File;
 
-import graphiques.Tick;
 import personnage.Hero;
 import personnage.Monstre;
 
@@ -70,8 +69,10 @@ public class Monde {
 		lesPortails.add(p1);
 
 		// recuperation du fichier contenant la carte du monde
+		// choix aléatoire d'une des 5 cartes disponibles
+		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
 		try {
-			carte = ImageIO.read(new File("src/images/carteTest.png"));
+			carte = ImageIO.read(new File("src/images/carte"+numCarte+".png"));
 		} catch (IOException e) {
 			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		}
