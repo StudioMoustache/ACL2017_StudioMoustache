@@ -61,3 +61,8 @@ Troisième semaine :
  - gestion changement carte tous les qqes vagues -> Flo
  - génération pseudo aléatoire de niveaux -> GuiR, Paul
  - monstres à plusieurs vies -> Paul
+ 
+ Dernier sprint :
+ - Vrai pathfinding pour les monstres : Flo, GuiB
+ - Placement aléatoire des portails, du nexus et du héros. Paul, GuiR
+ - Sprites pour les monstres, portails, nexus et héros. Paul, GuiR 
