@@ -1,0 +1,53 @@
+Detail des sprints
+STUDIO MOUSTACHE 
+Guillaume Bergerot, Paul Decanter, Florian Delconte, Guillaume Roth
+
+Voici la liste initiale de toutes les fonctionnalités que nous pensions implémenter dans notre projet, divisée en deux catégories : celles que nous avons bel et bien implémenté, et celle que nous avons abandonné
+Fonctionnalités implémentées :
+  - Personnage qui se déplace sur un terrain
+  - Terrain représenté par un plateau avec des murs
+  - Un objectif à défendre : le "nexus"
+  - Des monstres apparaissent par vagues à travers des portails
+  - Les monstres se dirigent vers le nexus pour le détruire
+  - Les monstres s'autodétruisent sur le nexus en lui causant des dégats
+  - Le héros peut écraser les monstres en marchant dessus
+  - Vagues de monstres infinies à difficulté croissante
+  - Le Nexus possède des points de vie
+  - Menus et informations (points...)
+  - Multijoueur sur le meme clavier
+
+Fonctionnalités non implémentées :
+  - Bonus / malus à ramasser sur la carte
+  - Gestion d'un inventaire
+  - Customiser notre héros
+  - Musique et bruitages
+  - Graphismes gores
+  - Système de monnaie pour acheter des items
+
+
+  
+Gestion des fonctionnalités gérées par sprint : 
+
+Premier sprint :
+- Personnage qui se déplace sur un terrain. (GuillaumeR s'occupe du déplacement, Florian s'occupe du multitouches)
+- Le héros peut écraser les monstres en marchant dessus (GuillaumeR)
+- Les monstres s'autodétruisent sur le nexus en lui causant des dégats (GuillaumeR)
+- Des monstres apparaissent par vagues à travers des portails (GuillaumeR s'occupe de la création des portails, Paul s'occupe des vagues de monstres)
+- Terrain représenté par un plateau avec des murs (GuillaumeB s'occupe de la mise en place et de la collision avec les murs, GuillaumeR s'occupe des skins)
+- Vagues de monstres infinies à difficulté croissante (Paul s'occupe de la création des vagues)
+
+Deuxième sprint :
+- Les monstres se dirigent vers le nexus pour le détruire (Florian et GuillaumeB)
+- Multijoueur sur le meme clavier (GuillaumeB)
+- Menus et informations (calcul des points...) (GuillaumeB s'occupe des menus, GuillaumeR s'occupe de l'aspect graphique)
+- Vagues de monstres infinies à difficulté croissante (Florian s'occupe du changement de carte entre les vagues)
+- Génération pseudo aléatoire de niveaux (Paul et GuillaumeR s'en occupent)
+- Différents monstres (Paul s'en occupe)
+
+Troisième sprint : 
+ - Vrai pathfinding pour les monstres (Florian et GuillaumeB)
+ - Placement aléatoire des portails, du nexus et du héro (Paul et GuillaumeR)
+ - Sprites pour les monstres, portails, nexus et héros (GuillaumeR)
+
+100% des fonctionnalités prévues sur chaque sprint ont été réalisées. 
+Cependant, cette façon de procéder nous a poussé à abandonner certaines fonctionnalités dès la création d'un sprint.
