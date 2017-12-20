@@ -2,20 +2,18 @@ package graphiques;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.TreeSet;
 
 import principal.Monde;
 
 public class MultipleKeyListener implements KeyListener {
 	private Monde monde;
-	
+
 	private final TreeSet<Integer>pressed =new TreeSet<Integer>();
 
 	private boolean deuxJoueurs = false;
-	
+
 	public MultipleKeyListener(Monde m){
 		this.monde=m;
 	}
@@ -26,7 +24,7 @@ public class MultipleKeyListener implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// Fonction non utilisée mais doit être implémentée pour 
+		// Fonction non utilisée mais doit être implémentée pour
 		// l'interface KeyListener
 	}
 
@@ -42,7 +40,7 @@ public class MultipleKeyListener implements KeyListener {
 		if (e.getExtendedKeyCode() == 80)
 			monde.changePause();
 	}
-	
+
 	/**
 	 * Parcours de l'ensemble contenant les touches entrées au clavier
 	 * afin de déplacer le ou les heros
@@ -64,7 +62,7 @@ public class MultipleKeyListener implements KeyListener {
 			deplacementY += 1;
 		}
 
-		if (deplacementX != 0 || deplacementY != 0) 
+		if (deplacementX != 0 || deplacementY != 0)
 			monde.deplacerHero1(deplacementX, deplacementY);
 
 		if (deuxJoueurs) {
@@ -85,8 +83,8 @@ public class MultipleKeyListener implements KeyListener {
 				deplacementY += 1;
 			}
 
-			if (deplacementX != 0 || deplacementY != 0) 
-				monde.deplacerHero2(deplacementX, deplacementY);			
+			if (deplacementX != 0 || deplacementY != 0)
+				monde.deplacerHero2(deplacementX, deplacementY);
 		}
 	}
 
@@ -94,7 +92,7 @@ public class MultipleKeyListener implements KeyListener {
 		String s="";
 		Iterator<Integer> it=pressed.iterator();
 		while(it.hasNext()){
-			s+=""+it.next();	
+			s+=""+it.next();
 		}
 		return s;
 	}

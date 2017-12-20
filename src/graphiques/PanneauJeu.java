@@ -2,8 +2,6 @@ package graphiques;
 
 import principal.Monde;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -13,12 +11,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import personnage.Hero;
-
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JLabel;
 
 
 public class PanneauJeu extends JPanel {
@@ -29,7 +24,7 @@ public class PanneauJeu extends JPanel {
 	// Instance permettant le raffraichissement
 	// automatique du monde et du panneau
 	private Tick tick;
-	// Permet la lecture de plusieurs entrees a la fois 
+	// Permet la lecture de plusieurs entrees a la fois
 	// sur le clavier
 	private MultipleKeyListener mkl;
 	// JLabel contenant les scores des deux joueurs
@@ -39,7 +34,7 @@ public class PanneauJeu extends JPanel {
 
 	private BufferedImage pauseImg;
 	private JLabel zonePause;
-	
+
 	public PanneauJeu(MainFrame f) {
 		super();
 
@@ -49,7 +44,7 @@ public class PanneauJeu extends JPanel {
 		mkl = new MultipleKeyListener(monde);
 
 		tick = new Tick(monde, this);
-		
+
 		Dimension dimensionScore=new Dimension(50,20);//TODO Une fenetre de score adaptable a la taille de la fenetre de jeu
 		scoreJ1=new JLabel(""+monde.getScoreHero1());
 		scoreJ2=new JLabel(""+monde.getScoreHero2());
@@ -60,7 +55,7 @@ public class PanneauJeu extends JPanel {
 
 		numeroVague = new JLabel("Vague : "+monde.getVague());
 		this.add(numeroVague);
-		
+
 		// initialisation de l'image => Peut etre un img factory a faire pour les images du menu et celle-ci?
 		try {
 			pauseImg = ImageIO.read(new File("src/images/pause.png"));
@@ -68,7 +63,7 @@ public class PanneauJeu extends JPanel {
 			zonePause = new JLabel(new ImageIcon(pauseImg));
 			zonePause.setPreferredSize(dimensionEcran);
 			this.add(zonePause);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,17 +80,17 @@ public class PanneauJeu extends JPanel {
 		numeroVague.setText("Vague : "+monde.getVague());
 		zonePause.setVisible(monde.isPaused());
 		// Affiche le filtre pause ne fonction du l'etat du monde (pause ou pas)
-		
+
 	}
 
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2D = (Graphics2D)g;
 		monde.dessiner(g2D);
 	}
-	
+
 	public void startUpdate(){
 		// On assigne le keylistener de la fenetre de l'application
 		// au keylistener que l'on a dans cette classe

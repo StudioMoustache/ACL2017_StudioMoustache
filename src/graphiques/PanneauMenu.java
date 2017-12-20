@@ -2,11 +2,9 @@ package graphiques;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.event.KeyEvent;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -44,8 +42,8 @@ public class PanneauMenu extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
-		
+
+
 		// Creation du JLabel de titre de jeu
 		JLabel titre = new JLabel(new ImageIcon(menuImg));
 		titre.setHorizontalAlignment(SwingConstants.CENTER);
@@ -60,10 +58,10 @@ public class PanneauMenu extends JPanel {
 		// Layout sous forme de grille de 1 ligne et de 2 colonnes
 		choixNbJoueurs.setLayout(new GridLayout(1, 2));
 
-		
-		
+
+
 		// Creation du JButton de choix 1 joueur
-		
+
 		JButton unJoueur = new JButton(new ImageIcon(onePlayerT));
 		unJoueur.setHorizontalAlignment(SwingConstants.CENTER);
 		unJoueur.setVerticalAlignment(SwingConstants.CENTER);
