@@ -73,9 +73,9 @@ public class Portail {
 	 * @param  Monde monde         Instance du monde dans lequel est le monstre
 	 * @return       [description]
 	 */
-	public Monstre invoquerMonstre(int positionX, int positionY, Monde monde) {
+	public Monstre invoquerMonstre(int positionX, int positionY, int type, Monde monde) {
 		this.nbMonstres--;
-		return new Monstre(positionX, positionY, monde);
+		return new Monstre(positionX, positionY, type, monde);
 	}
 
 

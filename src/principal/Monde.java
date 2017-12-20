@@ -89,8 +89,8 @@ public class Monde {
 	 * On ajoute le monstre m a lesMonstres
 	 * Des qu'un monstre figure dans cette liste, il est sur le terrain.
 	 */
-	public void invoquerMonstre(Portail p){
-		lesMonstres.add(p.invoquerMonstre(p.getX(), p.getY(), this));
+	public void invoquerMonstre(Portail p, int type){
+		lesMonstres.add(p.invoquerMonstre(p.getX(), p.getY(), type, this));
 	}
 
 	/**
@@ -100,15 +100,33 @@ public class Monde {
 		for(Portail p : lesPortails) {
 			// si il reste des monstres au portail et si c'est l'heure pour lui d'invoquer un monstre
 			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
-				invoquerMonstre(p);
+				int type;
+				if(p.getNbMonstres() - 10 > 0){
+					type = 3;
+				}else{
+					type = 2;
+				}
+				invoquerMonstre(p,type);
 				debutVague = true;
 			}
-			if(lesMonstres.isEmpty() && debutVague){
+			if(portailsVides() && lesMonstres.isEmpty()){
 				debutVague = false;
 			 	incrementeVague();
 			 	p.rechargerPortail(this.vague);
 			}
 		}
+	}
+
+	/**
+	* Fonction qui verifie que tous les portails sont vides
+	*/
+	public boolean portailsVides(){
+		for(Portail p : lesPortails) {
+			if(p.getNbMonstres() > 0) {
+				return false;
+			}
+		}
+		return true;	
 	}
 
 	/**
@@ -231,7 +249,8 @@ public class Monde {
 			(yMonstre >= this.nexus.getY() && yMonstre <= this.nexus.getY() + this.nexus.getHeight())) {
 
 			lesMonstres.remove(m);
-			this.nexus.retirerVie(1);
+			System.out.println(nexus.getVie());
+			this.nexus.retirerVie(m.getVie());
 		}
 	}
 
@@ -241,7 +260,11 @@ public class Monde {
 	 */
 	public void collisionHeroMonstres(Hero hero) {
 		for (int i = 0; i < lesMonstres.size() ; i++) {
-			collisionHeroMonstre(hero, lesMonstres.get(i));
+			Monstre m = lesMonstres.get(i);
+			if(m.estInvincible()){
+				m.decInvincibilite();
+			}
+			collisionHeroMonstre(hero, m);
 		}
 	}
 
@@ -255,9 +278,12 @@ public class Monde {
 		int yMonstre = m.getY() + m.getHeight()/2;
 
 		if ((xMonstre >= hero.getX() && xMonstre <= hero.getX() + hero.getWidth()) &&
-			(yMonstre >= hero.getY() && yMonstre  <= hero.getY() + hero.getHeight())) {
-			lesMonstres.remove(m);
-			hero.gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur
+			(yMonstre >= hero.getY() && yMonstre  <= hero.getY() + hero.getHeight()) && !m.estInvincible()) {
+			m.decVie();
+			if(m.getVie() == 0){
+				lesMonstres.remove(m);
+				hero.gainPoint(m.getValeurPoint());// ajout des point du monstre tué, aux score du joueur
+			}
 		}
 	}
 

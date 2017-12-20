@@ -3,6 +3,7 @@ package personnage;
 import graphiques.AffichageSprite;
 import principal.Monde;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -20,11 +21,11 @@ public abstract class Personnage {
 
 	// ------ CONSTRUCTEUR ------ //
 
-	public Personnage(int x, int y, int vitesse, AffichageSprite sprite, Monde monde) {
+	public Personnage(int x, int y, int vitesse, int type, Monde monde) {
 		this.x = x;
 		this.y = y;
 		this.vitesse = vitesse;
-		this.sprite = sprite;
+		this.sprite = this.setSprite(type);
 		this.monde = monde;
 	}
 
@@ -52,6 +53,16 @@ public abstract class Personnage {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public AffichageSprite setSprite(int type){
+		AffichageSprite sprite = null;
+		switch(type){
+			case 1 :	sprite = new AffichageSprite(Color.BLUE,8); break;
+			case 2 : 	sprite = new AffichageSprite(Color.ORANGE,8); break;
+			case 3 : 	sprite = new AffichageSprite(Color.RED,10); break;
+		}
+		return sprite;
 	}
 
 	public int getWidth() {

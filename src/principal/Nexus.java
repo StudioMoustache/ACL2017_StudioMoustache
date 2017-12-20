@@ -41,7 +41,7 @@ public class Nexus {
 	 * @return true si il a encore des points de vie, false sinon
 	 */
 	public boolean estVivant() {
-		return vie != 0;
+		return vie > 0;
 	}
 
 	// ----- Getters & Setters
@@ -60,6 +60,10 @@ public class Nexus {
 
 	public int getHeight() {
 		return sprite.getHeight();
+	}
+
+	public int getVie(){
+		return vie;
 	}
 
 	/**
