@@ -34,7 +34,10 @@ public class Monde {
 	private Nexus nexus;
 	// Numero courant de vague
 	private int vague;
-
+	// Indique combien de fois on a changé de map lorsque la vague est a 10
+	int nbChangeMap;
+	// Le numéro de la carte actuel.
+	int numCarteActuel;
 	// Indique si le joueur a perdu (point de vie du nexus à 0)
 	private boolean perdu = false;
 	// Indique si le jeu est en pause
@@ -46,8 +49,9 @@ public class Monde {
 
 	// Nombre d'updates courant
 	private int nbUpdates;
-
-	// carte du monde
+	private ArrayList<BufferedImage> listeCarte;
+	private ArrayList<BufferedImage> listeCarteS;
+	// carte du monde actuel
 	private BufferedImage carte; // pour les collisions
 	private BufferedImage carteS;  // pour le skin
 
@@ -59,23 +63,23 @@ public class Monde {
 	// ----- Constructeurs -----
 
 	private Monde(){
+		this.nbChangeMap=0;
 		this.lesMonstres = new ArrayList<Monstre>();
 		this.lesPortails = new ArrayList<Portail>();
+	
 		nbUpdates = 0;
-
+		numCarteActuel=-1;
 		this.nexus = new Nexus(50,50);
 		Portail p1 = new Portail(50, 450, 5, 20);
 		lesPortails.add(p1);
 
+		//Stock toute les cartes dans deux listes
+		//stockCartes();
+		
 		// recuperation du fichier contenant la carte du monde
 		// choix al�atoire d'une des 5 cartes disponibles
-		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
-		try {
-			carte = ImageIO.read(new File("src/images/carte"+numCarte+".png"));
-			carteS = ImageIO.read(new File("src/images/carte"+numCarte+"S.png"));
-		} catch (IOException e) {
-			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
-		}
+		chargeCarteAleatoire();
+		
 	}
 
 	// ----------------------- FONCTIONS DE INVOCATION MONSTRES ----------------------------
@@ -269,7 +273,7 @@ public class Monde {
 				nbUpdates += 1;
 				deplacementMonstres();
 				checkInvocationMonstres();
-
+				checkChangementMap();
 				if (!this.nexus.estVivant()) {
 					this.perdu = true;
 				}
@@ -329,6 +333,57 @@ public class Monde {
 		if (deuxJoueurs)
 			hero2.dessiner(g);
 	}
+	
+	public void checkChangementMap (){
+		//On change de map toute les 10vagues
+		if((int)vague % 10 == 0 && vague!=0){
+			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map 
+			//lorsqu'on arrive a un nombre de map multiple de 10
+			if(nbChangeMap==0){
+				chargeCarteAleatoire();
+				nbChangeMap++;
+			}
+			
+			
+		}else{
+			//on remet l'entier a 0 pour la prochaine fois qu'on arrive à un nombre de vague multiple de 10
+			nbChangeMap=0;
+		}
+	}
+	
+	public void chargeCarteAleatoire(){
+		
+		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
+		//On évite d'avoirs deux fois la même carte(numCarte==numCarteActuel), lors du chargement de carte aléatoire.
+		//si numCarteActuel==-1 c'est qu'on a pas encore de carte Actuel donc on autorise le random sans vérification
+		while(numCarte==numCarteActuel && numCarteActuel!=-1){
+			numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
+		}
+		numCarteActuel=numCarte;
+		try {
+			carte = ImageIO.read(new File("src/images/carte"+numCarte+".png"));
+			carteS = ImageIO.read(new File("src/images/carte"+numCarte+"S.png"));
+		} catch (IOException e) {
+			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
+		}
+	}
+	//Fonction pour stocker toute les cartes dans les liste, non utilisé pour le moment.
+	/*public void stockCartes(){
+		try {
+			int i;
+			System.out.println(listeCarte.size());
+			for(i=1;i<=5;i++){
+				BufferedImage c = ImageIO.read(new File("src/images/carte"+i+".png"));
+				BufferedImage cS = ImageIO.read(new File("src/images/carte"+i+"S.png"));
+				listeCarte.add(c);
+				listeCarteS.add(cS);
+				i++;
+			}
+			System.out.println(listeCarte.size());
+		} catch (IOException e) {
+			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
+		}
+	}*/
 
 	public String toString(){
 		String toReturn = "";
