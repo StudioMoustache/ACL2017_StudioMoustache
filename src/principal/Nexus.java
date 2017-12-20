@@ -6,8 +6,8 @@ import java.awt.Graphics2D;
 
 
 /**
- * 
- * L'élément à défendre à tout prix. Il perd de la vie si un monstre le touche.
+ *
+ * L'ï¿½lï¿½ment ï¿½ dï¿½fendre ï¿½ tout prix. Il perd de la vie si un monstre le touche.
  *
  */
 public class Nexus {
@@ -15,8 +15,8 @@ public class Nexus {
 	protected int y;
 	protected int vie;
 
-	private AffichageSprite sprite = new AffichageSprite(Color.GREEN);
-	
+	final private AffichageSprite sprite = new AffichageSprite(Color.GREEN);
+
 
 	// ----- Constructeur -------
 	public Nexus(int x, int y) {
@@ -24,10 +24,10 @@ public class Nexus {
 		this.y = y;
 		this.vie = 3;
 	}
-	
-	
+
+
 	// ----- Fonctions -----
-	
+
 	/**
 	 * Retire la valeur degats a la vie du nexus.
 	 * Utile si des "super monstres" retirent plus de vie
@@ -43,13 +43,13 @@ public class Nexus {
 	public boolean estVivant() {
 		return vie != 0;
 	}
-	
+
 	// ----- Getters & Setters
-	
+
 	public int getX() {
 		return this.x;
 	}
-	
+
 	public int getY() {
 		return this.y;
 	}
@@ -61,7 +61,7 @@ public class Nexus {
 	public int getHeight() {
 		return sprite.getHeight();
 	}
-	
+
 	/**
 	 * Retourne les coordonnees du nexus
 	 */

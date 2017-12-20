@@ -16,9 +16,9 @@ public abstract class Personnage {
 	final protected Monde monde;
 
 	// Classe permettant de dessiner le personnage
-	protected AffichageSprite sprite;
+	final protected AffichageSprite sprite;
 
-	// ------ CONSTRUCTEUR ------ // 
+	// ------ CONSTRUCTEUR ------ //
 
 	public Personnage(int x, int y, int vitesse, AffichageSprite sprite, Monde monde) {
 		this.x = x;
@@ -62,7 +62,7 @@ public abstract class Personnage {
 		return sprite.getHeight();
 	}
 
-	// ----- FONCTION ABSTRAITE ----- // 
+	// ----- FONCTION ABSTRAITE ----- //
 
 	/**
 	 * appelle la fonction de collision avec l'objectif du personnage
@@ -111,7 +111,7 @@ public abstract class Personnage {
 			if (currentpixelX == xTest && currentpixelY == yTest + sprite.getHeight()-1) {
 				signeX = 0;
 				signeY = -1;
-			}	
+			}
 
 			// Le pixel courant est dans une partie noire de la map = collision
 			if ((0x000000FF & bi.getRGB(currentpixelX, currentpixelY)) == 0) {
@@ -126,7 +126,7 @@ public abstract class Personnage {
 				tour = true;
 			}
 		}
-		
+
 		return collision;
 	}
 
@@ -146,7 +146,7 @@ public abstract class Personnage {
 			// Appel de la fonction de verification de collision avec les murs
 			collision = this.testCollisionMur(bi, directionx, directiony);
 
-			// Appel de la fonction de verification de collision avec : 
+			// Appel de la fonction de verification de collision avec :
 			// - soit les monstres (pour le hero)
 			// - soit le nexus (pour les monstres)
 			this.collisionObjectif();
@@ -157,7 +157,7 @@ public abstract class Personnage {
 				this.y += directiony;
 			}
 /*
-			// On est arrivee a la position max de la trajectoire donc 
+			// On est arrivee a la position max de la trajectoire donc
 			// on ne teste plus la collision
 			if (this.x == xArrivee && this.y == yArrivee) {
 				collision = false;

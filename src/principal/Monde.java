@@ -68,7 +68,7 @@ public class Monde {
 		lesPortails.add(p1);
 
 		// recuperation du fichier contenant la carte du monde
-		// choix aléatoire d'une des 5 cartes disponibles
+		// choix alï¿½atoire d'une des 5 cartes disponibles
 		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
 		try {
 			carte = ImageIO.read(new File("src/images/carte"+numCarte+".png"));
@@ -86,9 +86,7 @@ public class Monde {
 	 * Des qu'un monstre figure dans cette liste, il est sur le terrain.
 	 */
 	public void invoquerMonstre(Portail p){
-		p.decMonstres();
-		Monstre m = new Monstre(p.getX(), p.getY(), this);
-		lesMonstres.add(m);
+		lesMonstres.add(p.invoquerMonstre(p.getX(), p.getY(), this));
 	}
 
 	/**
