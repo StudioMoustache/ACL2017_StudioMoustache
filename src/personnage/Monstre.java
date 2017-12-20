@@ -29,7 +29,7 @@ public class Monstre extends Personnage {
 
 	// ----- Fonction ------ //
 
-	// Fonction expliquée dans la classe abstraite Personnage
+	// Fonction expliquee dans la classe abstraite Personnage
 	public void collisionObjectif() {
 		monde.collisionMonstreNexus(this);
 	}

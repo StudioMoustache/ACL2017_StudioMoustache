@@ -48,7 +48,8 @@ public class Monde {
 	private int nbUpdates;
 
 	// carte du monde
-	private BufferedImage carte;
+	private BufferedImage carte; // pour les collisions
+	private BufferedImage carteS;  // pour le skin
 
 	// Il n'existe que deux heros dans le jeu, ils sont donc crees ici
 	// en final et static
@@ -67,8 +68,11 @@ public class Monde {
 		lesPortails.add(p1);
 
 		// recuperation du fichier contenant la carte du monde
+		// choix aléatoire d'une des 5 cartes disponibles
+		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
 		try {
-			carte = ImageIO.read(new File("src/images/carteTest.png"));
+			carte = ImageIO.read(new File("src/images/carte"+numCarte+".png"));
+			carteS = ImageIO.read(new File("src/images/carte"+numCarte+"S.png"));
 		} catch (IOException e) {
 			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		}
@@ -311,7 +315,7 @@ public class Monde {
 
 	// fonction d'affichage du monde
 	public void dessiner(Graphics2D g) {
-		g.drawImage(carte, 0, 0, null);
+		g.drawImage(carteS, 0, 0, null);
 
 		nexus.dessiner(g);
 

@@ -59,7 +59,7 @@ public class PanneauJeu extends JPanel {
 		// initialisation de l'image => Peut etre un img factory a faire pour les images du menu et celle-ci?
 		try {
 			pauseImg = ImageIO.read(new File("src/images/pause.png"));
-			Dimension dimensionEcran = new Dimension(500, 520);
+			Dimension dimensionEcran = new Dimension(500, 500);
 			zonePause = new JLabel(new ImageIcon(pauseImg));
 			zonePause.setPreferredSize(dimensionEcran);
 			this.add(zonePause);
@@ -78,8 +78,13 @@ public class PanneauJeu extends JPanel {
 		scoreJ1.setText(""+monde.getScoreHero1());
 		scoreJ2.setText(""+monde.getScoreHero2());
 		numeroVague.setText("Vague : "+monde.getVague());
+
+		// Affiche le filtre pause et les scores en fonction du l'etat du monde (pause ou pas)
 		zonePause.setVisible(monde.isPaused());
-		// Affiche le filtre pause ne fonction du l'etat du monde (pause ou pas)
+		scoreJ1.setVisible(!monde.isPaused());
+		scoreJ2.setVisible(!monde.isPaused());
+		numeroVague.setVisible(!monde.isPaused());
+
 
 	}
 

@@ -66,7 +66,7 @@ public abstract class Personnage {
 
 	/**
 	 * appelle la fonction de collision avec l'objectif du personnage
-	 * pour vérifier la collision avec son objectif
+	 * pour verifier la collision avec son objectif
 	 * pour un hero : collision avec les monstres
 	 * pour un monstre : collision avec le(s) nexus
 	 */
@@ -90,24 +90,24 @@ public abstract class Personnage {
 		int currentpixelX = xTest, currentpixelY = yTest;
 		int signeX = 1, signeY = 0;
 
-		// cette boucle fait le tour de la périphérie du carré du personnage pour détecter une collision
+		// cette boucle fait le tour de la peripherie du carre du personnage pour detecter une collision
 		// signeX = 1, on parcourt les X de gauche à droite
 		// signeY = 1, on parcourt les Y de haut en bas (inversé avec swing)
 		while (!tour && !collision) {
-			// Parcours de la partie droite du carré
+			// Parcours de la partie droite du carre
 			if (currentpixelX == xTest + sprite.getWidth()-1 && currentpixelY == yTest) {
 				signeX = 0;
 				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
 				signeY = 1;
 			}
 
-			// Parcours de la partie basse du carré
+			// Parcours de la partie basse du carre
 			if (currentpixelX == xTest + sprite.getWidth()-1 && currentpixelY == yTest + sprite.getHeight()-1) {
 				signeX = -1;
 				signeY = 0;
 			}
 
-			// Parcours de la partie gauche du carré
+			// Parcours de la partie gauche du carre
 			if (currentpixelX == xTest && currentpixelY == yTest + sprite.getHeight()-1) {
 				signeX = 0;
 				signeY = -1;
@@ -121,7 +121,7 @@ public abstract class Personnage {
 				currentpixelY += signeY;
 			}
 
-			// Le pixel courant est le pixel de départ, donc on a fait un tour, pas de collision détectée
+			// Le pixel courant est le pixel de depart, donc on a fait un tour, pas de collision detectee
 			if (currentpixelX == xTest && currentpixelY == yTest) {
 				tour = true;
 			}
@@ -131,8 +131,8 @@ public abstract class Personnage {
 	}
 
 	/**
-	 * Fonction qui parcourt la trajectoire du personnage pour vérifier
-	 * s'il y a collision à chaque incrémentation de sa position
+	 * Fonction qui parcourt la trajectoire du personnage pour verifier
+	 * s'il y a collision à chaque incrementation de sa position
 	 * @param bi           image contenant la carte du niveau courant
 	 * @param directionx direction selon l'axe des abscisses
 	 * @param directiony direction selon l'axe des ordonnées
@@ -143,21 +143,21 @@ public abstract class Personnage {
 		int yArrivee = this.y + (directiony*this.vitesse);
 
 		while (!collision && (x != xArrivee || y != yArrivee)) {
-			// Appel de la fonction de vérification de collision avec les murs
+			// Appel de la fonction de verification de collision avec les murs
 			collision = this.testCollisionMur(bi, directionx, directiony);
 
-			// Appel de la fonction de vérification de collision avec : 
-			// - soit les monstres (pour le héro)
+			// Appel de la fonction de verification de collision avec : 
+			// - soit les monstres (pour le hero)
 			// - soit le nexus (pour les monstres)
 			this.collisionObjectif();
 
-			if (!collision) { // Il n'y a pas collision, on ajoute à la position courante
+			if (!collision) { // Il n'y a pas collision, on ajoute a la position courante
 							  // la direction en x et en y
 				this.x += directionx;
 				this.y += directiony;
 			}
 /*
-			// On est arrivé à la position max de la trajectoire donc 
+			// On est arrivee a la position max de la trajectoire donc 
 			// on ne teste plus la collision
 			if (this.x == xArrivee && this.y == yArrivee) {
 				collision = false;
