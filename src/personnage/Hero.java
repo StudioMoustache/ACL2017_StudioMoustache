@@ -12,12 +12,12 @@ public class Hero extends Personnage {
 	// ----- Constructeurs ------
 	
 	public Hero(Monde monde){
-		super(0, 0, 10, new AffichageSprite(Color.BLUE), monde);
+		super(0, 0, 10, 1, monde);
 		this.score = 0;
 	}
 	
 	public Hero(int x, int y, int vitesse, Monde monde){
-		super(x, y, vitesse, new AffichageSprite(Color.BLUE), monde);
+		super(x, y, vitesse, 1, monde);
 		this.score = 0;
 	}
 
