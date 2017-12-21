@@ -8,8 +8,16 @@ import java.util.TreeSet;
 import principal.Monde;
 
 public class MultipleKeyListener implements KeyListener {
-	private final int TOUCHE_QUITTER = 27; // 27 pour Esc
-	private final int TOUCHE_PAUSE = 80; // 80 pour P
+	private final int TOUCHE_QUITTER = 27; // Esc
+	private final int TOUCHE_PAUSE = 80; // P
+	private final int TOUCHE_GAUCHE = 37; // fleche gauche
+	private final int TOUCHE_DROITE = 39; // fleche droite
+	private final int TOUCHE_HAUT = 38; // fleche haut
+	private final int TOUCHE_BAS = 40; // fleche bas
+	private final int TOUCHE_GAUCHE_J2 = 81; // Q
+	private final int TOUCHE_DROITE_J2 = 68; // D
+	private final int TOUCHE_HAUT_J2 = 90; // Z
+	private final int TOUCHE_BAS_J2 = 83; // S
 	
 	private Monde monde;
 
@@ -55,16 +63,16 @@ public class MultipleKeyListener implements KeyListener {
 		// Deplacements du joueur 1
 		int deplacementX = 0, deplacementY = 0;
 
-		if(pressed.contains(37)){
+		if(pressed.contains(TOUCHE_GAUCHE)){
 			deplacementX -= 1;
 		}
-		if(pressed.contains(38)){
+		if(pressed.contains(TOUCHE_HAUT)){
 			deplacementY -= 1;
 		}
-		if(pressed.contains(39)){
+		if(pressed.contains(TOUCHE_DROITE)){
 			deplacementX += 1;
 		}
-		if(pressed.contains(40)){
+		if(pressed.contains(TOUCHE_BAS)){
 			deplacementY += 1;
 		}
 
@@ -76,16 +84,16 @@ public class MultipleKeyListener implements KeyListener {
 			deplacementX = 0;
 			deplacementY = 0;
 
-			if(pressed.contains(81)){
+			if(pressed.contains(TOUCHE_GAUCHE_J2)){
 				deplacementX -= 1;
 			}
-			if(pressed.contains(90)){
+			if(pressed.contains(TOUCHE_HAUT_J2)){
 				deplacementY -= 1;
 			}
-			if(pressed.contains(68)){
+			if(pressed.contains(TOUCHE_DROITE_J2)){
 				deplacementX += 1;
 			}
-			if(pressed.contains(83)){
+			if(pressed.contains(TOUCHE_BAS_J2)){
 				deplacementY += 1;
 			}
 

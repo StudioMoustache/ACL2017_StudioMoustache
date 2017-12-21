@@ -1,8 +1,5 @@
 package personnage;
 
-import java.awt.Color;
-
-import graphiques.AffichageSprite;
 import principal.Monde;
 
 public class Hero extends Personnage {
