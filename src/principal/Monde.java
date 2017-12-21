@@ -522,7 +522,6 @@ public class Monde {
 		while(estCorrect == false){
 			testX = 1 + (int)(Math.random() * ((sizeX - 1)));
 			testY = 1 + (int)(Math.random() * ((sizeY - 1)));
-			System.out.println("testX : "+testX+" testY : "+testY);
 			
 			// Si un des 4 coins du nexus est sur un pixel noir 
 			if((0x000000FF & carte.getRGB(testX, testY)) == 0 || 
