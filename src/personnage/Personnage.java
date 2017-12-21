@@ -97,7 +97,7 @@ public abstract class Personnage {
 
 		while (!collision && (x != xArrivee || y != yArrivee)) {
 			// Appel de la fonction de verification de collision avec les murs
-			collision = monde.testCollisionMur(this, directionx, directiony);
+			collision = monde.testCollisionMur(x, y, directionx, directiony, sprite.getWidth());
 
 			// Appel de la fonction de verification de collision avec :
 			// - soit les monstres (pour le hero)

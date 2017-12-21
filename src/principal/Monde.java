@@ -9,7 +9,6 @@ import java.io.File;
 
 import personnage.Hero;
 import personnage.Monstre;
-import personnage.Personnage;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -246,12 +245,12 @@ public class Monde {
  * @param  int directiony    direction y de la prochaine position du Personnage
  * @return     true s'il y a collision, false s'il n'y a pas.
  */
-	public boolean testCollisionMur(Personnage personnage, int directionx, int directiony) {
+	public boolean testCollisionMur(int posX, int posY, int directionx, int directiony, int dimensionSprite) {
 		boolean collision = false;
 		boolean tour = false;
 
-		int xTest = personnage.getX() + directionx;
-		int yTest = personnage.getY() + directiony;
+		int xTest = posX + directionx;
+		int yTest = posY + directiony;
 
 		int currentpixelX = xTest, currentpixelY = yTest;
 		int signeX = 1, signeY = 0;
@@ -261,20 +260,20 @@ public class Monde {
 		// signeY = 1, on parcourt les Y de haut en bas (inversé avec swing)
 		while (!tour && !collision) {
 			// Parcours de la partie droite du carre
-			if (currentpixelX == xTest + personnage.getWidth()-1 && currentpixelY == yTest) {
+			if (currentpixelX == xTest + dimensionSprite-1 && currentpixelY == yTest) {
 				signeX = 0;
 				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
 				signeY = 1;
 			}
 
 			// Parcours de la partie basse du carre
-			if (currentpixelX == xTest + personnage.getWidth()-1 && currentpixelY == yTest + personnage.getHeight()-1) {
+			if (currentpixelX == xTest + dimensionSprite-1 && currentpixelY == yTest + dimensionSprite-1) {
 				signeX = -1;
 				signeY = 0;
 			}
 
 			// Parcours de la partie gauche du carre
-			if (currentpixelX == xTest && currentpixelY == yTest + personnage.getHeight()-1) {
+			if (currentpixelX == xTest && currentpixelY == yTest + dimensionSprite-1) {
 				signeX = 0;
 				signeY = -1;
 			}
