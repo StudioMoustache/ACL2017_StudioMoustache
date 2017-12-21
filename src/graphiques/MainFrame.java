@@ -1,7 +1,6 @@
 package graphiques;
 
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
 
 
@@ -29,7 +28,7 @@ public class MainFrame extends JFrame {
 
 		// Initialement le premier panel est celui du menu d'avant-jeu
 		setPanneauMenu();
-
+		
 		// Enleve le bord de fenetre de l'OS
 		setUndecorated(true);
 
