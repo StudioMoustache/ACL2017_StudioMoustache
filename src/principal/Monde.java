@@ -38,6 +38,8 @@ public class Monde {
 	int nbChangeMap;
 	// Le numéro de la carte actuel.
 	int numCarteActuel;
+	// Indique la dernière vague pour laquelle on a rajouté un portail
+	private int vagueDernierPortail;
 	// Indique si le joueur a perdu (point de vie du nexus à 0)
 	private boolean perdu = false;
 	// Indique si le jeu est en pause
@@ -57,9 +59,12 @@ public class Monde {
 
 	// Il n'existe que deux heros dans le jeu, ils sont donc crees ici
 	// en final et static
-	final private static Hero hero1 = new Hero(250, 250, 5, instance);
-	final private static Hero hero2 = new Hero(270, 250, 5, instance);
+	final protected static Hero hero1 = new Hero(250, 250, 5, instance);
+	final protected static Hero hero2 = new Hero(270, 250, 5, instance);
 
+	private final int DEFAULT_NB_MONSTRES = 5;
+	private final int DEFAULT_PORTAL_FREQUENCY = 20;
+	
 	// ----- Constructeurs -----
 
 	private Monde(){
@@ -67,18 +72,22 @@ public class Monde {
 		this.lesMonstres = new ArrayList<Monstre>();
 		this.lesPortails = new ArrayList<Portail>();
 	
+		// recuperation du fichier contenant la carte du monde
+		// choix aleatoire d'une des 5 cartes disponibles
+		chargeCarteAleatoire();
+		
+		vagueDernierPortail = -1;
 		nbUpdates = 0;
 		numCarteActuel=-1;
-		this.nexus = new Nexus(50,50);
-		Portail p1 = new Portail(50, 450, 5, 20);
-		lesPortails.add(p1);
+		this.nexus = placerNexus();
+		placerNexus();
+		
+		ajouterPortail(DEFAULT_NB_MONSTRES, DEFAULT_PORTAL_FREQUENCY);
 
+		//placerHero(1);
+		
 		//Stock toute les cartes dans deux listes
 		//stockCartes();
-		
-		// recuperation du fichier contenant la carte du monde
-		// choix al�atoire d'une des 5 cartes disponibles
-		chargeCarteAleatoire();
 		
 	}
 
@@ -97,6 +106,8 @@ public class Monde {
 	 * Fonction d'automatisation de l'invocation des monstres
 	 */
 	public void checkInvocationMonstres() {
+		if(portailsVides() && lesMonstres.isEmpty())
+			incrementeVague();
 		for(Portail p : lesPortails) {
 			// si il reste des monstres au portail et si c'est l'heure pour lui d'invoquer un monstre
 			if(p.getNbMonstres() > 0 && this.nbUpdates % p.getFrequence() == 0) {
@@ -107,12 +118,9 @@ public class Monde {
 					type = 2;
 				}
 				invoquerMonstre(p,type);
-				debutVague = true;
-			}
-			if(portailsVides() && lesMonstres.isEmpty()){
-				debutVague = false;
-			 	incrementeVague();
-			 	p.rechargerPortail(this.vague);
+			}		
+			if(portailVide(p) && lesMonstres.isEmpty()){
+			 	p.rechargerPortail(this.vague-1);
 			}
 		}
 	}
@@ -128,12 +136,27 @@ public class Monde {
 		}
 		return true;	
 	}
+	
+	/**
+	 * Fonction qui vérifie qu'un portail est vide
+	 */
+	public boolean portailVide(Portail p){
+		if(p.getNbMonstres() > 0) {
+			return false;
+		}
+		return true;	
+	}
 
 	/**
 	 * Incremente le numero de la vague courante
 	 */
 	public void incrementeVague(){
 		this.vague += 1;
+	}
+	
+	public void ajouterPortail(int nbMonstres, int frequence){
+		Portail p = placerPortail(nbMonstres, frequence);
+		lesPortails.add(p);
 	}
 
 	// ----------------------- GESTION DES DEPLACEMENTS ----------------------
@@ -300,6 +323,7 @@ public class Monde {
 				deplacementMonstres();
 				checkInvocationMonstres();
 				checkChangementMap();
+				checkAjoutPortail();
 				if (!this.nexus.estVivant()) {
 					this.perdu = true;
 				}
@@ -310,8 +334,6 @@ public class Monde {
 			}
 		}
 	}
-
-	// TODO ajouterMonstre en designant un portail
 
 	// ---- Getters & Setters ---- //
 
@@ -368,12 +390,26 @@ public class Monde {
 			if(nbChangeMap==0){
 				chargeCarteAleatoire();
 				nbChangeMap++;
+				placerNexus();
+				placerHero(1);
+				replacerPortails();
 			}
-			
-			
+				
 		}else{
 			//on remet l'entier a 0 pour la prochaine fois qu'on arrive à un nombre de vague multiple de 10
 			nbChangeMap=0;
+		}
+	}
+	
+	public void checkAjoutPortail (){
+		//On change de map toute les 10vagues
+		if((int)vague % 3 == 0 && vague!=0){
+			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map 
+			//lorsqu'on arrive a un nombre de map multiple de 10
+			if(vagueDernierPortail != vague){
+				ajouterPortail(DEFAULT_NB_MONSTRES, DEFAULT_PORTAL_FREQUENCY);
+				vagueDernierPortail = vague;
+				}				
 		}
 	}
 	
@@ -410,6 +446,127 @@ public class Monde {
 			carte = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB);
 		}
 	}*/
+	
+	
+	/**
+	 * Cette fonction sert a placer le nexus de facon aleatoire sur la map
+	 * On prend garde a ne pas le placer dans un mur
+	 */
+	private Nexus placerNexus(){
+		boolean estCorrect = false;
+		int sizeX = this.carte.getWidth();
+		int sizeY = this.carte.getHeight();
+		Nexus n = new Nexus(0,0);
+		int testX;
+		int testY;
+		while(estCorrect == false){
+			testX = 1 + (int)(Math.random() * ((sizeX - 1)));
+			testY = 1 + (int)(Math.random() * ((sizeY - 1)));
+			System.out.println("testX : "+testX+" testY : "+testY);
+			
+			// Si un des 4 coins du nexus est sur un pixel noir 
+			if((0x000000FF & carte.getRGB(testX, testY)) == 0 || 
+					((0x000000FF & carte.getRGB(testX + n.getWidth(), testY)) == 0) || 
+					((0x000000FF & carte.getRGB(testX, testY + n.getHeight())) == 0) ||
+					((0x000000FF & carte.getRGB(testX + n.getWidth(), testY + n.getHeight())) == 0)){
+				// cas incorrect, donc on laisse boucler
+				
+			}else{
+				estCorrect = true;
+				n = new Nexus(testX, testY);
+			}
+		}
+		return n;
+	}
+	
+	/**
+	 * Cette fonction sert a placer un portail de facon aleatoire sur la map
+	 * On prend garde a ne pas le placer sur un mur
+	 * On prend garde aussi a ne pas le placer trop pres du nexus
+	 */
+	private Portail placerPortail(int nbMonstres, int frequence){
+		boolean estCorrect = false;
+		int sizeX = this.carte.getWidth();
+		int sizeY = this.carte.getHeight();
+		Portail p = new Portail(0,0,0,0);
+		int testX;
+		int testY;
+		while(estCorrect == false){
+			testX = 1 + (int)(Math.random() * ((sizeX - 1)));
+			testY = 1 + (int)(Math.random() * ((sizeY - 1)));
+			System.out.println("testX : "+testX+" testY : "+testY);
+			
+			// Si un des 4 coins du portail est sur un pixel noir 
+			if((0x000000FF & carte.getRGB(testX, testY)) == 0 || 
+					((0x000000FF & carte.getRGB(testX + p.getWidth(), testY)) == 0) || 
+					((0x000000FF & carte.getRGB(testX, testY + p.getHeight())) == 0) ||
+					((0x000000FF & carte.getRGB(testX + p.getWidth(), testY + p.getHeight())) == 0)){
+				// cas incorrect, donc on laisse boucler
+				
+			}else{
+				int distancePortailNexus = (int) Math.sqrt(Math.pow(Math.abs(this.nexus.getX()-testX),2) + 
+													Math.pow(Math.abs(this.nexus.getY()-testY), 2));
+				
+				if(distancePortailNexus > sizeX / 4){ // si la distance portail - nexus est supérieure à 1/4 de la taille de la map
+					estCorrect = true;
+					p = new Portail(testX, testY, nbMonstres, frequence);
+				}
+			}
+		}
+		return p;
+	}
+	
+	/**
+	 * Cette fonction sert à placer le hero autour du nexus
+	 * On prend garde a ne pas le placer dans un mur
+	 */
+	private void placerHero(int numeroHero) {
+		boolean estCorrect = false;
+		int testX;
+		int testY;
+
+		testX = (int) (this.nexus.getX() + this.nexus.getWidth() * 1.5);
+		testY = (int) (this.nexus.getY() + this.nexus.getHeight() * 1.5);
+
+		while (estCorrect == false) {
+			// on cherche aleatoirement une position libre autour du nexus
+			testX = (int) (this.nexus.getX() - this.nexus.getWidth() * 1.5)
+					+ (int) (Math.random() * (((this.nexus.getX() + this.nexus
+							.getWidth() * 1.5) - (this.nexus.getX() - this.nexus
+							.getWidth() * 1.5)) + 1));
+			testY = (int) (this.nexus.getY() - this.nexus.getHeight() * 1.5)
+					+ (int) (Math.random() * (((this.nexus.getY() + this.nexus
+							.getHeight() * 1.5) - (this.nexus.getY() - this.hero1
+							.getHeight() * 1.5)) + 1));
+
+			if ((0x000000FF & carte.getRGB(testX, testY)) == 0
+					|| ((0x000000FF & carte.getRGB(testX + nexus.getWidth(),
+							testY)) == 0)
+					|| ((0x000000FF & carte.getRGB(testX,
+							testY + nexus.getHeight())) == 0)
+					|| ((0x000000FF & carte.getRGB(testX + nexus.getWidth(),
+							testY + nexus.getHeight())) == 0)) {
+			} else {
+				estCorrect = true;
+				if (numeroHero == 1) {
+					hero1.setX(testX);
+					hero1.setY(testY);
+				} else {
+					hero2.setX(testX);
+					hero2.setY(testY);
+				}
+			}
+
+		}
+
+	}
+	
+	private void replacerPortails(){
+		int nbPortails = lesPortails.size();
+		lesPortails.clear();
+		for(int i = 0; i < nbPortails; i++)
+			ajouterPortail(DEFAULT_NB_MONSTRES, DEFAULT_PORTAL_FREQUENCY);
+	}
 
 	public String toString(){
 		String toReturn = "";

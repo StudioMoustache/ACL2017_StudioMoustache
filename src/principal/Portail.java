@@ -8,13 +8,13 @@ import personnage.Monstre;
 
 /**
  *
- * Note : les monstres ne sont pas r�ellement stockes dans un portail.
+ * Note : les monstres ne sont pas reellement stockes dans un portail.
  * 		Un portail connait seulement un nombre de monstre
  * 		L'objet Monstre est instancie seulement au moment de le faire apparaitre dans le monde
  *
  * 		La frequence est la valeur modulo laquelle le portail relache un monstre.
  * 		Soit nbUpdate le nombre d'update deja effectuees sur Monde.
- * 		Ainsi, si nbUpdqte % freqence == 0, le portail rel�chera un monstre. (operation effectuee dans Monde)
+ * 		Ainsi, si nbUpdqte % freqence == 0, le portail relechera un monstre. (operation effectuee dans Monde)
  * 		Par exemple : si frequence == 4, le portail lachera un monstre tous les 4 Tick.
  */
 
@@ -108,5 +108,13 @@ public class Portail {
 	}
 	public int distanceYOiseau(int nexusY){
 		return Math.abs(this.y-nexusY);
+	}
+	
+	public int getWidth() {
+		return sprite.getWidth();
+	}
+
+	public int getHeight() {
+		return sprite.getHeight();
 	}
 }

@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 /**
  *
- * L'�l�ment � d�fendre � tout prix. Il perd de la vie si un monstre le touche.
+ * L'element a defendre a tout prix. Il perd de la vie si un monstre le touche.
  *
  */
 public class Nexus {
@@ -52,6 +52,14 @@ public class Nexus {
 
 	public int getY() {
 		return this.y;
+	}
+	
+	public void setX(int x){
+		this.x = x;
+	}
+	
+	public void setY(int y){
+		this.y = y;
 	}
 
 	public int getWidth() {
