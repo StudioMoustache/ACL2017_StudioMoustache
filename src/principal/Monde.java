@@ -423,7 +423,9 @@ public class Monde {
 
 	// ---- Fonctions tierces ---- //
 
-	// fonction d'affichage du monde
+	/**
+	 * Fonction d'affichage du monde
+	 */
 	public void dessiner(Graphics2D g) {
 		g.drawImage(carteS, 0, 0, null);
 
@@ -461,6 +463,9 @@ public class Monde {
 		}
 	}
 	
+	/**
+	 * Fonction utilisée pour ajouter un portail sur la map toutes les 3 vagues
+	 */
 	public void checkAjoutPortail (){
 		//On change de map toute les 10vagues
 		if((int)vague % 3 == 0 && vague!=0){
@@ -474,7 +479,6 @@ public class Monde {
 	}
 
 	public void chargeCarteAleatoire(){
-
 		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
 		//On évite d'avoirs deux fois la même carte(numCarte==numCarteActuel), lors du chargement de carte aléatoire.
 		//si numCarteActuel==-1 c'est qu'on a pas encore de carte Actuel donc on autorise le random sans vérification
@@ -620,6 +624,11 @@ public class Monde {
 
 	}
 	
+	
+	/**
+	 * Fonction qui sauvegarde le nombre de portails et les replace correctement le terrain
+	 * Utilisé lors du changement de map
+	 */
 	private void replacerPortails(){
 		int nbPortails = lesPortails.size();
 		lesPortails.clear();
