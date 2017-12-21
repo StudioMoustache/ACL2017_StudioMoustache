@@ -58,7 +58,7 @@ public abstract class Personnage {
 	public AffichageSprite setSprite(int type){
 		AffichageSprite sprite = null;
 		switch(type){
-			case 1 :	sprite = new AffichageSprite(Color.BLUE,8); break;
+			case 1 :	sprite = new AffichageSprite(Color.BLUE,9); break;
 			case 2 : 	sprite = new AffichageSprite(Color.ORANGE,8); break;
 			case 3 : 	sprite = new AffichageSprite(Color.RED,10); break;
 		}
@@ -83,64 +83,6 @@ public abstract class Personnage {
 	 */
 	public abstract void collisionObjectif();
 
-	// ----- FONCTION DE COLLISION AVEC MUR ----- //
-
-	/**
-	 * Fonction qui test pour la position courante du personnage
-	 * s'il est en collision avec un mur
-	 * @param  bi image contenant la carte du niveau courant
-	 * @return    true s'il y a collision, false sinon
-	 */
-	private boolean testCollisionMur(BufferedImage bi, int directionx, int directiony) {
-		boolean collision = false;
-		boolean tour = false;
-
-		int xTest = x + directionx;
-		int yTest = y + directiony;
-
-		int currentpixelX = xTest, currentpixelY = yTest;
-		int signeX = 1, signeY = 0;
-
-		// cette boucle fait le tour de la peripherie du carre du personnage pour detecter une collision
-		// signeX = 1, on parcourt les X de gauche à droite
-		// signeY = 1, on parcourt les Y de haut en bas (inversé avec swing)
-		while (!tour && !collision) {
-			// Parcours de la partie droite du carre
-			if (currentpixelX == xTest + sprite.getWidth()-1 && currentpixelY == yTest) {
-				signeX = 0;
-				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
-				signeY = 1;
-			}
-
-			// Parcours de la partie basse du carre
-			if (currentpixelX == xTest + sprite.getWidth()-1 && currentpixelY == yTest + sprite.getHeight()-1) {
-				signeX = -1;
-				signeY = 0;
-			}
-
-			// Parcours de la partie gauche du carre
-			if (currentpixelX == xTest && currentpixelY == yTest + sprite.getHeight()-1) {
-				signeX = 0;
-				signeY = -1;
-			}
-
-			// Le pixel courant est dans une partie noire de la map = collision
-			if ((0x000000FF & bi.getRGB(currentpixelX, currentpixelY)) == 0) {
-				collision = true;
-			} else {
-				currentpixelX += signeX;
-				currentpixelY += signeY;
-			}
-
-			// Le pixel courant est le pixel de depart, donc on a fait un tour, pas de collision detectee
-			if (currentpixelX == xTest && currentpixelY == yTest) {
-				tour = true;
-			}
-		}
-
-		return collision;
-	}
-
 	/**
 	 * Fonction qui parcourt la trajectoire du personnage pour verifier
 	 * s'il y a collision à chaque incrementation de sa position
@@ -155,7 +97,7 @@ public abstract class Personnage {
 
 		while (!collision && (x != xArrivee || y != yArrivee)) {
 			// Appel de la fonction de verification de collision avec les murs
-			collision = this.testCollisionMur(bi, directionx, directiony);
+			collision = monde.testCollisionMur(this, directionx, directiony);
 
 			// Appel de la fonction de verification de collision avec :
 			// - soit les monstres (pour le hero)
@@ -167,14 +109,6 @@ public abstract class Personnage {
 				this.x += directionx;
 				this.y += directiony;
 			}
-/*
-			// On est arrivee a la position max de la trajectoire donc
-			// on ne teste plus la collision
-			if (this.x == xArrivee && this.y == yArrivee) {
-				collision = false;
-			}
-
-			*/
 		}
 	}
 
