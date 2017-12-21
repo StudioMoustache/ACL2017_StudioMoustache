@@ -77,6 +77,7 @@ public class Monde {
 		chargeCarteAleatoire();
 		
 		vagueDernierPortail = -1;
+
 		nbUpdates = 0;
 		numCarteActuel=-1;
 		this.nexus = placerNexus();
@@ -84,8 +85,6 @@ public class Monde {
 		
 		ajouterPortail(DEFAULT_NB_MONSTRES, DEFAULT_PORTAL_FREQUENCY);
 
-		//placerHero(1);
-		
 		//Stock toute les cartes dans deux listes
 		//stockCartes();
 		
@@ -134,7 +133,7 @@ public class Monde {
 				return false;
 			}
 		}
-		return true;	
+		return true;
 	}
 	
 	/**
@@ -256,6 +255,67 @@ public class Monde {
 
 
 	// -------------------- GESTION DES COLLISIONS --------------------
+
+	// ----- FONCTION DE COLLISION AVEC MUR ----- //
+
+/**
+ * Fonction qui test pour la position suivante d'un personnage
+ * s'il est en collision avec un mur
+ * @param  int posX          position x courante du personnage qui test la collisions
+ * @param  int posY          position y courante du personnage qui test la collision
+ * @param  int directionx    direction x de la prochaine position du Personnage
+ * @param  int directiony    direction y de la prochaine position du Personnage
+ * @return     true s'il y a collision, false s'il n'y a pas.
+ */
+	public boolean testCollisionMur(int posX, int posY, int directionx, int directiony, int dimensionSprite) {
+		boolean collision = false;
+		boolean tour = false;
+
+		int xTest = posX + directionx;
+		int yTest = posY + directiony;
+
+		int currentpixelX = xTest, currentpixelY = yTest;
+		int signeX = 1, signeY = 0;
+
+		// cette boucle fait le tour de la peripherie du carre du personnage pour detecter une collision
+		// signeX = 1, on parcourt les X de gauche à droite
+		// signeY = 1, on parcourt les Y de haut en bas (inversé avec swing)
+		while (!tour && !collision) {
+			// Parcours de la partie droite du carre
+			if (currentpixelX == xTest + dimensionSprite-1 && currentpixelY == yTest) {
+				signeX = 0;
+				// 0,0 en haut à gauche de l'image, donc on augmente en y quand on descend
+				signeY = 1;
+			}
+
+			// Parcours de la partie basse du carre
+			if (currentpixelX == xTest + dimensionSprite-1 && currentpixelY == yTest + dimensionSprite-1) {
+				signeX = -1;
+				signeY = 0;
+			}
+
+			// Parcours de la partie gauche du carre
+			if (currentpixelX == xTest && currentpixelY == yTest + dimensionSprite-1) {
+				signeX = 0;
+				signeY = -1;
+			}
+
+			// Le pixel courant est dans une partie noire de la map = collision
+			if ((0x000000FF & carte.getRGB(currentpixelX, currentpixelY)) == 0) {
+				collision = true;
+			} else {
+				currentpixelX += signeX;
+				currentpixelY += signeY;
+			}
+
+			// Le pixel courant est le pixel de depart, donc on a fait un tour, pas de collision detectee
+			if (currentpixelX == xTest && currentpixelY == yTest) {
+				tour = true;
+			}
+		}
+
+		return collision;
+	}
 
 	/**
 	 * Pour un monstre donne, une position en x et en y donnee, test s'il y a collision
@@ -381,11 +441,11 @@ public class Monde {
 		if (deuxJoueurs)
 			hero2.dessiner(g);
 	}
-	
+
 	public void checkChangementMap (){
 		//On change de map toute les 10vagues
 		if((int)vague % 10 == 0 && vague!=0){
-			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map 
+			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map
 			//lorsqu'on arrive a un nombre de map multiple de 10
 			if(nbChangeMap==0){
 				chargeCarteAleatoire();
@@ -394,7 +454,7 @@ public class Monde {
 				placerHero(1);
 				replacerPortails();
 			}
-				
+
 		}else{
 			//on remet l'entier a 0 pour la prochaine fois qu'on arrive à un nombre de vague multiple de 10
 			nbChangeMap=0;
@@ -412,9 +472,9 @@ public class Monde {
 				}				
 		}
 	}
-	
+
 	public void chargeCarteAleatoire(){
-		
+
 		int numCarte = (int)( Math.random()*( 5 - 1 + 1 ) ) + 1;
 		//On évite d'avoirs deux fois la même carte(numCarte==numCarteActuel), lors du chargement de carte aléatoire.
 		//si numCarteActuel==-1 c'est qu'on a pas encore de carte Actuel donc on autorise le random sans vérification
