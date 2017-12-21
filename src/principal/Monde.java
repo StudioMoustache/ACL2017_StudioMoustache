@@ -65,6 +65,9 @@ public class Monde {
 	private final int DEFAULT_NB_MONSTRES = 5;
 	private final int DEFAULT_PORTAL_FREQUENCY = 20;
 	
+	private final int FREQUENCE_AJOUT_PORTAIL = 3; // tous les combien de vagues on ajoute un portail
+	private final int FREQUENCE_CHANGEMENT_MAP = 10; // tous les combien de vagues on change de map
+	
 	// ----- Constructeurs -----
 
 	private Monde(){
@@ -166,7 +169,7 @@ public class Monde {
 	 * @param y direction sur l'axe des ordonnees
 	 */
 	public void deplacerHero1(int x, int y){
-		if (!isPaused()) {
+		if (!isPaused() && !isPerdu()) {
 			hero1.deplacementTrajectoire(carte, x, y);
 		}
 	}
@@ -177,7 +180,7 @@ public class Monde {
 	 * @param y direction sur l'axe des ordonnees
 	 */
 	public void deplacerHero2(int x, int y){
-		if (!isPaused()) {
+		if (!isPaused() && !isPerdu()) {
 			hero2.deplacementTrajectoire(carte, x, y);
 		}
 	}
@@ -387,10 +390,6 @@ public class Monde {
 				if (!this.nexus.estVivant()) {
 					this.perdu = true;
 				}
-			}else {
-				System.out.println("Nexus detruit. Vous avez perdu.");
-				System.out.println("PERDU !!");
-				System.exit(0);
 			}
 		}
 	}
@@ -403,6 +402,10 @@ public class Monde {
 
 	public boolean isPaused() {
 		return paused;
+	}
+	
+	public boolean isPerdu(){
+		return perdu;
 	}
 
 	public void changePause() {
@@ -446,7 +449,7 @@ public class Monde {
 
 	public void checkChangementMap (){
 		//On change de map toute les 10vagues
-		if((int)vague % 10 == 0 && vague!=0){
+		if((int)vague % FREQUENCE_CHANGEMENT_MAP == 0 && vague!=0){
 			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map
 			//lorsqu'on arrive a un nombre de map multiple de 10
 			if(nbChangeMap==0){
@@ -467,8 +470,7 @@ public class Monde {
 	 * Fonction utilisée pour ajouter un portail sur la map toutes les 3 vagues
 	 */
 	public void checkAjoutPortail (){
-		//On change de map toute les 10vagues
-		if((int)vague % 3 == 0 && vague!=0){
+		if((int)vague % FREQUENCE_AJOUT_PORTAIL == 0 && vague!=0){
 			//Une condition pour bien vérifier que le Monde change qu'une seul fois la map 
 			//lorsqu'on arrive a un nombre de map multiple de 10
 			if(vagueDernierPortail != vague){
@@ -557,7 +559,6 @@ public class Monde {
 		while(estCorrect == false){
 			testX = 1 + (int)(Math.random() * ((sizeX - 1)));
 			testY = 1 + (int)(Math.random() * ((sizeY - 1)));
-			System.out.println("testX : "+testX+" testY : "+testY);
 			
 			// Si un des 4 coins du portail est sur un pixel noir 
 			if((0x000000FF & carte.getRGB(testX, testY)) == 0 || 
@@ -643,5 +644,24 @@ public class Monde {
 		for(Monstre m : lesMonstres)
 			toReturn += m.toString()+"\n";
 		return toReturn;
+	}
+	
+	/**
+	 * Fonction déclenchée par l'appui sur Echap
+	 * Elle quitte seulement si on a perdu
+	 */
+	public void quitter(){
+		if(isPerdu())
+			System.exit(0);
+	}
+
+	public void restart(){
+		System.out.println("restart");
+		try {
+			Runtime.getRuntime().exec("java -jar Test.jar");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.exit(0);
 	}
 }

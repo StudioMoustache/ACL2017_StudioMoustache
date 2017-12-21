@@ -34,6 +34,9 @@ public class PanneauJeu extends JPanel {
 
 	private BufferedImage pauseImg;
 	private JLabel zonePause;
+	
+	private BufferedImage perduImg;
+	private JLabel zonePerdu;
 
 	public PanneauJeu(MainFrame f) {
 		super();
@@ -63,6 +66,11 @@ public class PanneauJeu extends JPanel {
 			zonePause = new JLabel(new ImageIcon(pauseImg));
 			zonePause.setPreferredSize(dimensionEcran);
 			this.add(zonePause);
+			
+			perduImg = ImageIO.read(new File("src/images/perdu.png"));
+			zonePerdu = new JLabel(new ImageIcon(perduImg));
+			zonePerdu.setPreferredSize(dimensionEcran);
+			this.add(zonePerdu);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -79,13 +87,14 @@ public class PanneauJeu extends JPanel {
 		scoreJ2.setText(""+monde.getScoreHero2());
 		numeroVague.setText("Vague : "+monde.getVague());
 
-		// Affiche le filtre pause et les scores en fonction du l'etat du monde (pause ou pas)
+		// Affiche le filtre pause et les scores en fonction du l'etat du monde (pause ou pas, perdu ou pas)
+		scoreJ1.setVisible(!monde.isPaused() || monde.isPerdu());
+		scoreJ2.setVisible(!monde.isPaused() || monde.isPerdu());
+		numeroVague.setVisible(!monde.isPaused() || monde.isPerdu());
+		
 		zonePause.setVisible(monde.isPaused());
-		scoreJ1.setVisible(!monde.isPaused());
-		scoreJ2.setVisible(!monde.isPaused());
-		numeroVague.setVisible(!monde.isPaused());
-
-
+		zonePerdu.setVisible(monde.isPerdu());
+		
 	}
 
 

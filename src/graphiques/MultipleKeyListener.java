@@ -8,6 +8,9 @@ import java.util.TreeSet;
 import principal.Monde;
 
 public class MultipleKeyListener implements KeyListener {
+	private final int TOUCHE_QUITTER = 27; // 27 pour Esc
+	private final int TOUCHE_PAUSE = 80; // 80 pour P
+	
 	private Monde monde;
 
 	private final TreeSet<Integer>pressed =new TreeSet<Integer>();
@@ -31,13 +34,16 @@ public class MultipleKeyListener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
         pressed.add(e.getExtendedKeyCode());
+        if(e.getExtendedKeyCode() == TOUCHE_QUITTER){
+        	monde.quitter();
+        }
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		pressed.remove(e.getExtendedKeyCode());
 
-		if (e.getExtendedKeyCode() == 80) // 80 pour P
+		if (e.getExtendedKeyCode() == TOUCHE_PAUSE)
 			monde.changePause();
 	}
 
