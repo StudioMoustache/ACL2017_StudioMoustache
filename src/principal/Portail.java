@@ -101,4 +101,12 @@ public class Portail {
 	public void dessiner(Graphics2D g) {
 		sprite.dessiner(g, x, y);
 	}
+	
+	public int distanceXOiseau(int nexusX){
+		
+		return Math.abs(this.x-nexusX);
+	}
+	public int distanceYOiseau(int nexusY){
+		return Math.abs(this.y-nexusY);
+	}
 }
