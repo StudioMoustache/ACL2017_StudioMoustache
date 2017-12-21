@@ -44,15 +44,12 @@ public class Monde {
 	private boolean perdu = false;
 	// Indique si le jeu est en pause
 	private boolean paused = false;
-	private boolean debutVague = false;
 
 	// Indique si le jeu est en 1 joueur ou 2 joueurs
 	private boolean deuxJoueurs = false;
 
 	// Nombre d'updates courant
 	private int nbUpdates;
-	private ArrayList<BufferedImage> listeCarte;
-	private ArrayList<BufferedImage> listeCarteS;
 	// carte du monde actuel
 	private BufferedImage carte; // pour les collisions
 	private BufferedImage carteS;  // pour le skin
@@ -87,9 +84,6 @@ public class Monde {
 		placerNexus();
 		
 		ajouterPortail(DEFAULT_NB_MONSTRES, DEFAULT_PORTAL_FREQUENCY);
-
-		//Stock toute les cartes dans deux listes
-		//stockCartes();
 		
 	}
 
@@ -600,7 +594,7 @@ public class Monde {
 							.getWidth() * 1.5)) + 1));
 			testY = (int) (this.nexus.getY() - this.nexus.getHeight() * 1.5)
 					+ (int) (Math.random() * (((this.nexus.getY() + this.nexus
-							.getHeight() * 1.5) - (this.nexus.getY() - this.hero1
+							.getHeight() * 1.5) - (this.nexus.getY() - this.nexus
 							.getHeight() * 1.5)) + 1));
 
 			if ((0x000000FF & carte.getRGB(testX, testY)) == 0
@@ -653,15 +647,5 @@ public class Monde {
 	public void quitter(){
 		if(isPerdu())
 			System.exit(0);
-	}
-
-	public void restart(){
-		System.out.println("restart");
-		try {
-			Runtime.getRuntime().exec("java -jar Test.jar");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.exit(0);
 	}
 }
