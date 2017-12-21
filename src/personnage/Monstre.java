@@ -1,13 +1,9 @@
 package personnage;
 
-import java.awt.Color;
-
-import graphiques.AffichageSprite;
 import principal.Monde;
 
 public class Monstre extends Personnage {
 	private int dimensionSprite;
-	private int vitesse;
 	private int vie;
 	private int invincibilite = 0;
 	private int valeurPoint; //le nombre de point que le hero gagne en tuant le monstre
@@ -29,10 +25,8 @@ public class Monstre extends Personnage {
 
 		switch(type){
 			case 2 :	this.valeurPoint = 10;
-						//this.vitesse = 6; 
 						this.vie = 1; break;
 			case 3 :	this.valeurPoint = 20;
-						//this.vitesse = 1;
 						this.vie = 2; break;
 		}
 	}

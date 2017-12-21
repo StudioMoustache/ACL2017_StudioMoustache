@@ -46,8 +46,9 @@ Deuxième sprint :
 
 Troisième sprint : 
  - Vrai pathfinding pour les monstres (Florian et GuillaumeB)
- - Placement aléatoire des portails, du nexus et du héro (Paul et GuillaumeR)
- - Sprites pour les monstres, portails, nexus et héros (GuillaumeR)
+ - Placement aléatoire des portails, du nexus et du héro (GuillaumeR)
+ - Sprites pour les monstres, portails, nexus et héros, avec Factory etc (Paul)
+ - Ecran de fin (GuillaumeR)
 
 100% des fonctionnalités prévues sur chaque sprint ont été réalisées. 
 Cependant, cette façon de procéder nous a poussé à abandonner certaines fonctionnalités dès la création d'un sprint.
